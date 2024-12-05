@@ -22,18 +22,7 @@ public class Prospect extends Societe {
     /** Identifiant unique global pour tous les prospects. */
     private static int idProspect;
 
-    /**
-     * Constructeur avec tous les champs de la classe Prospect et de sa classe parente {@link Societe}.
-     *
-     * @param idSociete          Identifiant unique de la société.
-     * @param raisonSocialeSociete Raison sociale de la société.
-     * @param telSociete          Numéro de téléphone de la société.
-     * @param emailSociete        Adresse e-mail de la société.
-     * @param commentaireSociete  Commentaires ou notes sur la société.
-     * @param adresseSociete      Adresse complète de la société.
-     * @param dateProspection     Date de la prospection.
-     * @param interested          Indique si le prospect est intéressé ou non.
-     */
+
     public Prospect(int idSociete, String raisonSocialeSociete, String telSociete, String emailSociete,
                     String commentaireSociete, Adresse adresseSociete, LocalDate dateProspection, String interested) throws Exception {
         super(idSociete, raisonSocialeSociete, telSociete, emailSociete, commentaireSociete, adresseSociete);

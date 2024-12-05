@@ -20,33 +20,43 @@ public class Client extends Societe {
     /** Identifiant unique global pour tous les clients. */
     private static int idClient = 1;
 
+    /** Identifiant spécifique pour chaque instance de client. */
+    private int identifiantClient;
+
     /**
      * Constructeur par défaut.
      * Utilisé pour créer une instance de Client sans initialiser ses champs.
      */
     public Client() {
         super();
+        this.identifiantClient = idClient++; // Assigner l'ID unique et incrémenter pour le prochain client
     }
 
     /**
-     * Constructeur avec tous les champs de la classe Client et de sa classe parente {@link Societe}.
+     * Constructeur complet pour la classe Client.
      *
-     * @param idSociete          Identifiant unique de la société.
-     * @param raisonSocialeSociete Raison sociale de la société (nom commercial).
-     * @param telSociete          Numéro de téléphone de la société.
-     * @param emailSociete        Adresse e-mail de la société.
-     * @param commentaireSociete  Commentaires ou notes sur la société.
-     * @param adresseSociete      Adresse complète de la société.
-     * @param chiffreAffaire      Chiffre d'affaires réalisé par le client.
-     * @param nbEmploye           Nombre d'employés travaillant pour le client.
+     * @param raisonSocialeSociete La raison sociale de la société.
+     * @param telSociete           Le numéro de téléphone de la société.
+     * @param emailSociete         L'adresse email de la société.
+     * @param commentaireSociete   Les commentaires relatifs à la société.
+     * @param adresseSociete       L'adresse de la société.
+     * @param chiffreAffaire       Le chiffre d'affaires réalisé par le client.
+     * @param nbEmploye            Le nombre d'employés travaillant pour le client.
+     * @throws Exception           Si une valeur fournie est invalide.
      */
     public Client(
-            int idSociete, String raisonSocialeSociete, String telSociete, String emailSociete,
-                  String commentaireSociete, Adresse adresseSociete, Long chiffreAffaire, int nbEmploye) throws Exception {
-        super(idSociete, raisonSocialeSociete, telSociete, emailSociete, commentaireSociete, adresseSociete);
+            String raisonSocialeSociete, String telSociete, String emailSociete,
+            String commentaireSociete, Adresse adresseSociete, Long chiffreAffaire, int nbEmploye) throws Exception {
+
+        // Appelle le constructeur de la classe parente (Societe)
+        super(idClient, raisonSocialeSociete, telSociete, emailSociete, commentaireSociete, adresseSociete);
+
+        // Assigner l'ID unique et incrémenter pour le prochain client
+        this.identifiantClient = idClient++;
+
+        // Utiliser les setters pour les autres champs
         setChiffreAffaire(chiffreAffaire);
         setNbEmploye(nbEmploye);
-        idClient++;
     }
 
 //    private void incrementeIdClient() {
