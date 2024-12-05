@@ -1,15 +1,15 @@
 package entities;
 
-public class Adress {
+public class Adresse {
 
     private String numeroRue;
     private String nomRue;
     private String codePostal;
     private String ville;
 
-    public Adress() {}
+    public Adresse() {}
 
-    public Adress(String numeroRue, String nomRue, String codePostal, String ville) {
+    public Adresse(String numeroRue, String nomRue, String codePostal, String ville) {
         setNumeroRue(numeroRue);
         setNomRue(nomRue);
         setCodePostal(codePostal);

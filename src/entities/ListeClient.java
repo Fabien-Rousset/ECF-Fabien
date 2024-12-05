@@ -8,6 +8,11 @@ public class ListeClient {
 
     public static ArrayList<Client> listeClient = new ArrayList<>();
 
+    public ListeClient() {
+    }
 
+    public void ajouterClient(Client client) {
+        listeClient.add(client);
+    }
 
 }

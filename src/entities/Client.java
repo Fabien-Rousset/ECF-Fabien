@@ -3,6 +3,8 @@ package entities;
 import java.util.Collections;
 import java.util.Comparator;
 
+import static entities.ListeClient.listeClient;
+
 public class Client {
 
     private double chiffreAffaire;
@@ -17,20 +19,28 @@ public class Client {
         setNbEmploye(nbEmploye);
     }
 
-    public void ajouterClient(Client client) {
-        listeClient.add(client);
-    }
-
-    public static Comparator<Client> comparerParNom = new Comparator<Client>(){
-        @Override
-        public int compare(Client c1, Client c2){
-            return c1.getRaisonSocialeSociete().compareTo(c2.getgetRaisonSocialeSociete());
+    public static boolean verifierRaisonSocialeUnique(String raisonSociale) {
+        for (Client client : ListeClient.listeClient) {
+            if (client instanceof Societe) {
+                if (((Societe) client).getRaisonSocialeSociete().equals(raisonSociale)) {
+                    return false;
+                }
+            }
         }
-    };
-
-    public void trierParNomClient(){
-        Collections.sort(listeClient, comparerParNom);
+        return true;
     }
+
+
+//    public static Comparator<Client> comparerParNom = new Comparator<Client>(){
+//        @Override
+//        public int compare(Client c1, Client c2){
+//            return c1.getRaisonSocialeSociete().compareTo(c2.getgetRaisonSocialeSociete());
+//        }
+//    };
+//
+//    public void trierParNomClient(){
+//        Collections.sort(listeClient);
+//    }
 
     public double getChiffreAffaire() {
         return chiffreAffaire;

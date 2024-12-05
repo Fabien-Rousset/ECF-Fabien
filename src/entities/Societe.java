@@ -7,11 +7,11 @@ public abstract class Societe {
     private String telSociete;
     private String emailSociete;
     private String commentaireSociete;
-    private Adress adresseSociete;
+    private Adresse adresseSociete;
 
     public Societe() {}
 
-    public Societe(int idSociete, String raisonSocialeSociete, String telSociete, String emailSociete, String commentaireSociete, Adress adresseSociete) {
+    public Societe(int idSociete, String raisonSocialeSociete, String telSociete, String emailSociete, String commentaireSociete, Adresse adresseSociete) {
         setIdSociete(idSociete);
         setRaisonSocialeSociete(raisonSocialeSociete);
         setTelSociete(telSociete);
@@ -60,11 +60,11 @@ public abstract class Societe {
         this.commentaireSociete = commentaireSociete;
     }
 
-    public Adress getAdresseSociete() {
+    public Adresse getAdresseSociete() {
         return adresseSociete;
     }
 
-    public void setAdresseSociete(Adress adresseSociete) {
+    public void setAdresseSociete(Adresse adresseSociete) {
         this.adresseSociete = adresseSociete;
     }
 
