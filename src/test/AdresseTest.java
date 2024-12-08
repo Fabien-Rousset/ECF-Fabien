@@ -1,5 +1,7 @@
-package entities;
+package test;
 
+import entities.Adresse;
+import entities.ExoException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import utilities.RegexPattern;

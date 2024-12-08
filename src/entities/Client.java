@@ -20,17 +20,13 @@ public class Client extends Societe {
     /** Identifiant unique global pour tous les clients. */
     private static int idClient = 1;
 
-    /** Identifiant spécifique pour chaque instance de client. */
-    private int identifiantClient;
+
 
     /**
      * Constructeur par défaut.
      * Utilisé pour créer une instance de Client sans initialiser ses champs.
      */
-    public Client() {
-        super();
-        this.identifiantClient = idClient++; // Assigner l'ID unique et incrémenter pour le prochain client
-    }
+
 
     /**
      * Constructeur complet pour la classe Client.
@@ -49,19 +45,14 @@ public class Client extends Societe {
             String commentaireSociete, Adresse adresseSociete, Long chiffreAffaire, int nbEmploye) throws Exception {
 
         // Appelle le constructeur de la classe parente (Societe)
-        super(idClient, raisonSocialeSociete, telSociete, emailSociete, commentaireSociete, adresseSociete);
+        super(idClient++, raisonSocialeSociete, telSociete, emailSociete, commentaireSociete, adresseSociete);
 
-        // Assigner l'ID unique et incrémenter pour le prochain client
-        this.identifiantClient = idClient++;
 
         // Utiliser les setters pour les autres champs
         setChiffreAffaire(chiffreAffaire);
         setNbEmploye(nbEmploye);
     }
 
-//    private void incrementeIdClient() {
-//        idClient = IdSociete++;
-//    }
 
     /**
      * Récupère le chiffre d'affaires du client.

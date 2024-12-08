@@ -20,15 +20,16 @@ public class Prospect extends Societe {
     private String interested;
 
     /** Identifiant unique global pour tous les prospects. */
-    private static int idProspect;
+    private static int idProspect = 1;
 
 
-    public Prospect(int idSociete, String raisonSocialeSociete, String telSociete, String emailSociete,
+    public Prospect(String raisonSocialeSociete, String telSociete, String emailSociete,
                     String commentaireSociete, Adresse adresseSociete, LocalDate dateProspection, String interested) throws Exception {
-        super(idSociete, raisonSocialeSociete, telSociete, emailSociete, commentaireSociete, adresseSociete);
+        super(idProspect++, raisonSocialeSociete, telSociete, emailSociete, commentaireSociete, adresseSociete);
         setDateProspection(String.valueOf(dateProspection));
         setInterested(interested);
-        idProspect ++;
+
+
     }
 
     /**
