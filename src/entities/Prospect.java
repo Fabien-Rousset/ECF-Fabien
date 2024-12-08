@@ -24,7 +24,7 @@ public class Prospect extends Societe {
 
 
     public Prospect(String raisonSocialeSociete, String telSociete, String emailSociete,
-                    String commentaireSociete, Adresse adresseSociete, LocalDate dateProspection, String interested) throws Exception {
+                    String commentaireSociete, Adresse adresseSociete, String dateProspection, String interested) throws Exception {
         super(idProspect++, raisonSocialeSociete, telSociete, emailSociete, commentaireSociete, adresseSociete);
         setDateProspection(String.valueOf(dateProspection));
         setInterested(interested);
