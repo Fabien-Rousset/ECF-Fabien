@@ -11,13 +11,9 @@ import java.util.Comparator;
 public class ListeClient {
 
     /** Liste statique contenant tous les clients. */
-    public static ArrayList<Client> listeClient = new ArrayList<>();
+    public static final ArrayList<Client> listeClient = new ArrayList<>();
 
-    /**
-     * Constructeur par défaut.
-     * Permet de créer une instance de ListeClient.
-     */
-    public ListeClient() {}
+
 
     /**
      * Ajoute un client à la liste des clients.

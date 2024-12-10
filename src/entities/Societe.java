@@ -90,14 +90,24 @@ public abstract class Societe {
      *
      * @param raisonSocialeSociete La nouvelle raison sociale de la société.
      */
-    public void setRaisonSocialeSociete(String raisonSocialeSociete) throws ExoException{
-
+    public void setRaisonSocialeSociete(String raisonSocialeSociete) throws ExoException {
         if (raisonSocialeSociete == null || raisonSocialeSociete.trim().isEmpty()) {
             throw new ExoException("La Raison sociale de la société doit être renseignée");
         }
 
+        // Vérifier si la raison sociale existe déjà dans les listes de clients et de prospects
+        boolean existeDeja = ListeClient.listeClient.stream()
+                .anyMatch(client -> client.getRaisonSocialeSociete().equalsIgnoreCase(raisonSocialeSociete))
+                || ListeProspect.listeProspect.stream()
+                .anyMatch(prospect -> prospect.getRaisonSocialeSociete().equalsIgnoreCase(raisonSocialeSociete));
+
+        if (existeDeja) {
+            throw new ExoException("La Raison sociale doit être unique et ne peut pas être utilisée deux fois.");
+        }
+
         this.raisonSocialeSociete = raisonSocialeSociete;
     }
+
 
     /**
      * Récupère le numéro de téléphone de la société.
@@ -182,20 +192,6 @@ public abstract class Societe {
         this.adresseSociete = adresseSociete;
     }
 
-    /**
-     * Fournit une représentation textuelle de la société, incluant tous ses champs.
-     *
-     * @return Une chaîne de caractères représentant la société.
-     */
-    @Override
-    public String toString() {
-        return "Societe{" +
-                "idSociete=" + this.idSociete +
-                ", raisonSociale='" + this.raisonSocialeSociete + '\'' +
-                ", tel='" + this.telSociete + '\'' +
-                ", email='" + this.emailSociete + '\'' +
-                ", commentaire='" + this.commentaireSociete + '\'' +
-                ", adresse=" + this.adresseSociete +
-                '}';
-    }
+
+
 }

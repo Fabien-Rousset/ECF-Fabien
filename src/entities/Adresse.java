@@ -101,14 +101,15 @@ public class Adresse {
      * @param codePostal Le nouveau code postal de l'adresse.
      */
     public void setCodePostal(String codePostal) throws ExoException {
-        if(codePostal == null || codePostal.isEmpty()){
+        if (codePostal == null || codePostal.isEmpty()) {
             throw new ExoException("Ce champs doit être renseigné");
         }
-        else if (!RegexPattern.PATTERN_CODE_POSTAL.matcher(codePostal).matches()) {
+        if (!codePostal.matches("^\\d{5}$")) { // Validation directe
             throw new ExoException("Le code postal doit contenir 5 chiffres");
         }
         this.codePostal = codePostal;
     }
+
 
     /**
      * Récupère la ville.
@@ -131,16 +132,6 @@ public class Adresse {
         this.ville = ville;
     }
 
-    /**
-     * Fournit une représentation textuelle de l'adresse, incluant ses champs principaux.
-     *
-     * @return Une chaîne de caractères représentant l'adresse.
-     */
-    @Override
-    public String toString() {
-        return "Adresse : numero='" + this.numeroRue +
-                "', Rue='" + this.nomRue +
-                "', code postal='" + this.codePostal +
-                "', ville='" + this.ville + "'";
-    }
+
+
 }

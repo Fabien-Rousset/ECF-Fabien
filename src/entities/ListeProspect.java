@@ -9,13 +9,9 @@ import java.util.ArrayList;
 public class ListeProspect {
 
     /** Liste statique contenant tous les prospects. */
-    public static ArrayList<Client> listeProspect = new ArrayList<>();
+    public static final ArrayList<Client> listeProspect = new ArrayList<>();
 
-    /**
-     * Constructeur par défaut.
-     * Permet de créer une instance de ListeProspect.
-     */
-    public ListeProspect() {}
+
 
     /**
      * Ajoute un prospect à la liste des prospects.

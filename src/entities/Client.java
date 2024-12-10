@@ -15,7 +15,7 @@ public class Client extends Societe {
     private Long chiffreAffaire;
 
     /** Nombre d'employés travaillant pour le client. */
-    private int nbEmploye;
+    private Integer nbEmploye;
 
     /** Identifiant unique global pour tous les clients. */
     private static int idClient = 1;
@@ -42,11 +42,10 @@ public class Client extends Societe {
      */
     public Client(
             String raisonSocialeSociete, String telSociete, String emailSociete,
-            String commentaireSociete, Adresse adresseSociete, Long chiffreAffaire, int nbEmploye) throws Exception {
+            String commentaireSociete, Adresse adresseSociete, Long chiffreAffaire, Integer nbEmploye) throws Exception {
 
         // Appelle le constructeur de la classe parente (Societe)
         super(idClient++, raisonSocialeSociete, telSociete, emailSociete, commentaireSociete, adresseSociete);
-
 
         // Utiliser les setters pour les autres champs
         setChiffreAffaire(chiffreAffaire);
@@ -76,8 +75,7 @@ public class Client extends Societe {
         // Affecte la valeur si elle est valide
         this.chiffreAffaire = chiffreAffaire;
     }
-
-
+    
 
     /**
      * Récupère le nombre d'employés travaillant pour le client.
@@ -93,7 +91,12 @@ public class Client extends Societe {
      *
      * @param nbEmploye Le nouveau nombre d'employés.
      */
-    public void setNbEmploye(int nbEmploye) {
+    public void setNbEmploye(Integer nbEmploye) throws ExoException {
+        if (nbEmploye == null || nbEmploye < 0 ) {
+            throw new ExoException("le nombre d'employé doit être renseigné et strictement supérieur à 0");
+        }
+
+
         this.nbEmploye = nbEmploye;
     }
 
