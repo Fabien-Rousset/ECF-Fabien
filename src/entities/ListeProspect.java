@@ -9,17 +9,18 @@ import java.util.ArrayList;
 public class ListeProspect {
 
     /** Liste statique contenant tous les prospects. */
-    public static final ArrayList<Client> listeProspect = new ArrayList<>();
+    public static final ArrayList<Prospect> listeProspect = new ArrayList<>();
 
 
 
     /**
      * Ajoute un prospect à la liste des prospects.
      *
-     * @param client Le prospect à ajouter à la liste.
+     * @param prospect Le prospect à ajouter à la liste.
      */
-    public void ajouterClient(Client client) {
-        listeProspect.add(client);
+    public void ajouterProspect(Prospect prospect) {
+
+        listeProspect.add(prospect);
     }
 
 }

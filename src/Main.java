@@ -1,8 +1,12 @@
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import com.formdev.flatlaf.FlatIntelliJLaf;
 import entities.Adresse;
 import entities.Client;
 import entities.Prospect;
+import utilities.SocieteChoix;
+import view.Accueil;
+import view.MiseAjour;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -19,6 +23,11 @@ public class Main {
         //Initialisation du logger pour le programme
         try {
             initialiserLogger();
+
+            FlatIntelliJLaf.setup();
+            new Accueil().setVisible(true);
+
+
         } catch (IOException ex) {
             System.out.println("Erreur lors de l'initialisation du logger : " + ex.getMessage());
             System.exit(1);

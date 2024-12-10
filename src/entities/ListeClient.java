@@ -21,6 +21,7 @@ public class ListeClient {
      * @param client Le client à ajouter à la liste.
      */
     public void ajouterClient(Client client) {
+
         listeClient.add(client);
     }
 
