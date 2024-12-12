@@ -38,7 +38,7 @@ public class Accueil extends JFrame {
     private void initFrame() {
         setContentPane(contentPane);
         setTitle("Accueil");
-        setSize(600, 400);
+        setSize(900, 600);
     }
 
     private void afficherPanel() {

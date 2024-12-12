@@ -52,6 +52,12 @@ public class Client extends Societe {
         setNbEmploye(nbEmploye);
     }
 
+    public static int renvoiProchainId(){
+        return idClient;
+    }
+
+
+
 
     /**
      * Récupère le chiffre d'affaires du client.

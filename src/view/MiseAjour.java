@@ -50,6 +50,14 @@ public class MiseAjour extends JDialog {
         listeners();
         changementLabel();
         getRootPane().setDefaultButton(buttonAccueil);
+        if (societeChoix == SocieteChoix.CLIENT){
+            Client.renvoiProchainId();
+            IdField.setText(String.valueOf(Client.renvoiProchainId()));
+
+        } else if (societeChoix == SocieteChoix.PROSPECT){
+            Prospect.renvoiProchainId();
+            IdField.setText(String.valueOf(Prospect.renvoiProchainId()));
+        }
 
     }
 
@@ -79,7 +87,7 @@ public class MiseAjour extends JDialog {
 
     private void initFrame() {
         setTitle("MiseAjour");
-        setSize(600, 1000);
+        setSize(900, 600);
         setContentPane(contentPane);
     }
 
@@ -114,6 +122,7 @@ public class MiseAjour extends JDialog {
 
 
         if (p_societeChoix == SocieteChoix.CLIENT) {
+            IdField.setText(String.valueOf(client.renvoiProchainId()));
             raisonSocialeField.setText(client.getRaisonSocialeSociete());
             telephoneField.setText(client.getTelSociete());
             emailField.setText(client.getEmailSociete());
@@ -124,6 +133,7 @@ public class MiseAjour extends JDialog {
             chiffreAffaireField.setText(String.valueOf(client.getChiffreAffaire()));
             nbEmployeField.setText(String.valueOf(client.getNbEmploye()));
         } else if (p_societeChoix == SocieteChoix.PROSPECT) {
+            IdField.setText(String.valueOf(prospect.renvoiProchainId()));
             raisonSocialeField.setText(prospect.getRaisonSocialeSociete());
             telephoneField.setText(prospect.getTelSociete());
             emailField.setText(prospect.getEmailSociete());
@@ -169,6 +179,7 @@ public class MiseAjour extends JDialog {
                         // Afficher un message de confirmation
                         JOptionPane.showMessageDialog(contentPane, "Client ajouté avec succès !");
                     } else if (societeChoix == SocieteChoix.PROSPECT) {
+                        System.out.println(dateProspectField.getText());
                         // Créer un nouveau Prospect à partir des champs de la classe MiseAjour
                         Prospect prospect = new Prospect(
                                 raisonSocialeField.getText().trim(), // Raison sociale
@@ -181,7 +192,7 @@ public class MiseAjour extends JDialog {
                                         codePostalField.getText().trim(), // Code postal
                                         villeField.getText().trim() // Ville
                                 ),
-                                dateProspection.getText().trim(),  // Date de prospection
+                                dateProspectField.getText(),  // Date de prospection
                                 boxInteret.getSelectedItem().toString() // Intéressé ou non
                         );
 
@@ -251,11 +262,5 @@ public class MiseAjour extends JDialog {
         dispose();
     }
 
-    public static void main(String[] args) {
-        MiseAjour dialog = new MiseAjour(SocieteChoix.CLIENT);
-        MiseAjour dialog2 = new MiseAjour(SocieteChoix.PROSPECT);
-        dialog.pack();
-        dialog.setVisible(true);
-        System.exit(0);
-    }
+
 }
