@@ -1,8 +1,9 @@
 package entities;
 
+import utilities.Interet;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 import static utilities.RegexPattern.DATE_FORMATTER;
 
@@ -17,14 +18,15 @@ public class Prospect extends Societe {
     private LocalDate dateProspection;
 
     /** Indique si le prospect est intéressé ou non. */
-    private String interested;
+    private Interet interested;
+    //A VOIR
 
     /** Identifiant unique global pour tous les prospects. */
     private static int idProspect = 1;
 
 
     public Prospect(String raisonSocialeSociete, String telSociete, String emailSociete,
-                    String commentaireSociete, Adresse adresseSociete, LocalDate dateProspection, String interested) throws Exception {
+                    String commentaireSociete, Adresse adresseSociete, String dateProspection, String interested) throws Exception {
         super(idProspect++, raisonSocialeSociete, telSociete, emailSociete, commentaireSociete, adresseSociete);
         setDateProspection(String.valueOf(dateProspection));
         setInterested(interested);
@@ -44,13 +46,16 @@ public class Prospect extends Societe {
     /**
 //     * Modifie la date de prospection.
      **/
-    public void setDateProspection(String dateProspectionString) throws DateTimeException {
+    public void setDateProspection(String dateProspectionString) throws ExoException {
 
             // Tente de parser la chaîne avec le formatteur de date
         // Si la conversion est réussie, la valeur est affectée
-            this.dateProspection = LocalDate.parse(dateProspectionString, DATE_FORMATTER);
+        try{
+            this.dateProspection = LocalDate.parse(dateProspectionString, DATE_FORMATTER);}
+        catch(DateTimeException e){
+            throw new ExoException("Date invalide, veuillez saisir au format jj/MM/aaaa.");
+        }
             // Lève une exception si la date n'est pas au bon format
-            throw new DateTimeException("Date invalide, veuillez saisir au format jj/MM/aaaa.");
 
     }
 
@@ -60,7 +65,7 @@ public class Prospect extends Societe {
      *
      * @return Une chaîne indiquant si le prospect est intéressé ou non.
      */
-    public String getInterested() {
+    public Interet getInterested() {
         return interested;
     }
 
@@ -70,7 +75,8 @@ public class Prospect extends Societe {
      * @param interested La nouvelle valeur indiquant si le prospect est intéressé ou non.
      */
     public void setInterested(String interested) {
-        this.interested = interested;
+
+        this.interested = Interet.valueOf(interested.toUpperCase());
     }
 
     /**

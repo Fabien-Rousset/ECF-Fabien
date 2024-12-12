@@ -1,3 +1,5 @@
+package test;
+
 import entities.Adresse;
 import entities.ExoException;
 import org.junit.jupiter.api.Test;

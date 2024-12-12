@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class Accueil extends JDialog {
+public class Accueil extends JFrame {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
@@ -35,10 +35,11 @@ public class Accueil extends JDialog {
 
 
 
-    private void initFrame(){
+    private void initFrame() {
         setContentPane(contentPane);
         setTitle("Accueil");
         setSize(600, 400);
+
         }
 
         private void afficherPanel(){

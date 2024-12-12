@@ -122,7 +122,7 @@ public class MiseAjour extends JDialog {
                                         codePostalField.getText().trim(), // Code postal
                                         villeField.getText().trim() // Ville
                                 ),
-                                LocalDate.parse(dateProspection.getText().trim(), DateTimeFormatter.ofPattern("dd/MM/yyyy")), // Date de prospection
+                                dateProspection.getText().trim(),  // Date de prospection
                                 boxInteret.getSelectedItem().toString() // Intéressé ou non
                         );
 
