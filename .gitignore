@@ -2,8 +2,9 @@
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
-/log/
+/log/*
 
+###POG###
 ### Eclipse ###
 .apt_generated
 .classpath
