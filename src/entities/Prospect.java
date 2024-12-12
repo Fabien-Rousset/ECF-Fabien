@@ -104,7 +104,7 @@ public class Prospect extends Societe {
      */
     @Override
     public String toString() {
-        return "Prospect{" +
+        return super.toString() + "Prospect{" +
                 "dateProspection=" + this.dateProspection +
                 ", interested='" + this.interested + '\'' +
                 '}';

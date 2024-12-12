@@ -117,4 +117,12 @@ public class Client extends Societe {
     public static void setIdClient(int idClient) {
         Client.idClient = idClient;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "Client{" +
+                "chiffreAffaire=" + chiffreAffaire +
+                ", nbEmploye=" + nbEmploye +
+                '}';
+    }
 }

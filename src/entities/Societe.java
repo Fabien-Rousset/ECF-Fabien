@@ -36,6 +36,8 @@ public abstract class Societe {
      */
     public Societe() {}
 
+
+
     /**
      * Constructeur avec tous les champs de la classe.
      *
@@ -192,6 +194,16 @@ public abstract class Societe {
         this.adresseSociete = adresseSociete;
     }
 
-
+    @Override
+    public String toString() {
+        return "Societe{" +
+                "idSociete=" + idSociete +
+                ", raisonSocialeSociete='" + raisonSocialeSociete + '\'' +
+                ", telSociete='" + telSociete + '\'' +
+                ", emailSociete='" + emailSociete + '\'' +
+                ", commentaireSociete='" + commentaireSociete + '\'' +
+                ", adresseSociete=" + adresseSociete +
+                '}';
+    }
 
 }

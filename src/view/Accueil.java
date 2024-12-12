@@ -31,6 +31,7 @@ public class Accueil extends JFrame {
         listeners();
         getRootPane().setDefaultButton(buttonOK);
 
+
     }
 
 
@@ -76,6 +77,14 @@ public class Accueil extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     new MiseAjour(societeChoix).setVisible(true);
                     change.setText("Gestion des clients");
+
+                }
+            });
+
+            affichageButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    new Liste().setVisible(true);
 
                 }
             });
