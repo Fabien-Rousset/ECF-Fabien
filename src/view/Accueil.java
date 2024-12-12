@@ -32,6 +32,7 @@ public class Accueil extends JFrame {
         afficherPanel();
         listeners();
         getRootPane().setDefaultButton(buttonAccueil);
+
     }
 
     private void initFrame() {
@@ -98,6 +99,28 @@ public class Accueil extends JFrame {
                     JOptionPane.showMessageDialog(
                             Accueil.this,
                             "Veuillez sélectionner 'Client' ou 'Prospect' avant de modifier.",
+                            "Erreur",
+                            JOptionPane.WARNING_MESSAGE
+                    );
+                }
+            }
+        });
+
+        suppressionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Affiche le panel Accueil3.
+                Accueil3.setVisible(true);
+
+                // Vérifie si un choix a été fait.
+                if (societeChoix == SocieteChoix.CLIENT) {
+                    remplirComboBoxClients(); // Appelle une méthode pour remplir avec les clients.
+                } else if (societeChoix == SocieteChoix.PROSPECT) {
+                    remplirComboBoxProspects(); // Appelle une méthode pour remplir avec les prospects.
+                } else {
+                    JOptionPane.showMessageDialog(
+                            Accueil.this,
+                            "Veuillez sélectionner 'Client' ou 'Prospect' avant de supprimer.",
                             "Erreur",
                             JOptionPane.WARNING_MESSAGE
                     );
