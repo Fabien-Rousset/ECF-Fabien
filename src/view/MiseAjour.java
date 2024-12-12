@@ -1,13 +1,10 @@
 package view;
 
 import entities.*;
-import utilities.Interet;
 import utilities.SocieteChoix;
 
 import javax.swing.*;
 import java.awt.event.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.logging.Level;
 
@@ -15,8 +12,8 @@ import static logging.MonLogger.LOGGER;
 
 public class MiseAjour extends JDialog {
     private JPanel contentPane;
-    private JButton buttonOK;
-    private JButton buttonCancel;
+    private JButton buttonAccueil;
+    private JButton buttonQuitter;
     private JLabel change;
     private JPanel majClient;
     private JTextArea commentaire;
@@ -48,7 +45,7 @@ public class MiseAjour extends JDialog {
         initFrame();
         listeners();
         changementLabel();
-        getRootPane().setDefaultButton(buttonOK);
+        getRootPane().setDefaultButton(buttonAccueil);
 
     }
 
@@ -151,15 +148,16 @@ public class MiseAjour extends JDialog {
 
 
 
-        buttonOK.addActionListener(new ActionListener() {
+        buttonAccueil.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onOK();
             }
         });
 
-        buttonCancel.addActionListener(new ActionListener() {
+        buttonQuitter.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                onCancel();
+                dispose();
             }
         });
 

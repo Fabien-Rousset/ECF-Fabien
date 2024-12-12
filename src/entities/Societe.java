@@ -127,7 +127,7 @@ public abstract class Societe {
      */
     public void setTelSociete(String telSociete) throws ExoException {
         if (telSociete == null || telSociete.trim().isEmpty()) {
-            throw new ExoException("Ce champs doit être renseigné");}
+            throw new ExoException("Le numéro de téléphone doit être renseigné");}
 
         else if (!RegexPattern.PATTERN_TELEPHONE.matcher(telSociete).matches()) {
             throw new ExoException("Le format de votre numéro de téléphone n'est pas valide");
@@ -151,7 +151,7 @@ public abstract class Societe {
      */
     public void setEmailSociete(String emailSociete) throws ExoException {
         if (emailSociete == null || emailSociete.trim().isEmpty()) {
-            throw new ExoException("Ce champs doit être renseigné");
+            throw new ExoException("L'email doit être renseigné");
         } else if (!(RegexPattern.PATTERN_EMAIL.matcher(emailSociete).matches())) {
             throw new ExoException("Le format de votre email n'est pas valide");
         }
@@ -197,12 +197,12 @@ public abstract class Societe {
     @Override
     public String toString() {
         return "Societe{" +
-                "idSociete=" + idSociete +
-                ", raisonSocialeSociete='" + raisonSocialeSociete + '\'' +
-                ", telSociete='" + telSociete + '\'' +
-                ", emailSociete='" + emailSociete + '\'' +
-                ", commentaireSociete='" + commentaireSociete + '\'' +
-                ", adresseSociete=" + adresseSociete +
+                "idSociete=" + this.idSociete +
+                ", raisonSocialeSociete='" + this.raisonSocialeSociete + '\'' +
+                ", telSociete='" + this.telSociete + '\'' +
+                ", emailSociete='" + this.emailSociete + '\'' +
+                ", commentaireSociete='" + this.commentaireSociete + '\'' +
+                ", adresseSociete=" + this.adresseSociete +
                 '}';
     }
 

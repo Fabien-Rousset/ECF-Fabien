@@ -1,8 +1,6 @@
 package entities;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 /**
  * Classe représentant une liste de clients.
@@ -20,7 +18,7 @@ public class ListeClient {
      *
      * @param client Le client à ajouter à la liste.
      */
-    public void ajouterClient(Client client) {
+    public static void ajouterClient(Client client) {
 
         listeClient.add(client);
     }

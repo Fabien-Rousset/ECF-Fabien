@@ -1,9 +1,9 @@
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 import com.formdev.flatlaf.FlatIntelliJLaf;
-import entities.Adresse;
-import entities.Client;
-import entities.Prospect;
+import entities.*;
+import entities.ListeClient.*;
+
 import utilities.SocieteChoix;
 import view.Accueil;
 import view.MiseAjour;
@@ -49,7 +49,8 @@ public class Main {
 
             Client client1 = new Client("Nike","0754533320","kjghgk@gmail.com","pas de commentaire", adresse1, 500000000L, 50);
             Prospect prospect1 = new Prospect("Adidias","0754533320", "ljsdqf@gmail.com", "pads de commentaire", adresse2, "25/05/2005", "oui");
-            System.out.println(prospect1.getIdSociete());
+            ListeClient.ajouterClient(client1);
+            ListeProspect.ajouterProspect(prospect1);
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());

@@ -1,8 +1,6 @@
 package view;
 
 import entities.Client;
-import entities.ExoException;
-import entities.ListeClient;
 import entities.Prospect;
 import utilities.SocieteChoix;
 
@@ -16,39 +14,43 @@ import static utilities.RegexPattern.DATE_FORMATTER;
 
 public class Liste extends JFrame {
     private JPanel contentPane;
-    private JButton buttonOK;
-    private JButton buttonCancel;
+    private JButton buttonAccueil;
+    private JButton buttonQuitter;
     private JTable table1;
     private SocieteChoix societeChoix;
 
-    public Liste() {
-
-
-        getRootPane().setDefaultButton(buttonOK);
+    //Pareil ici, je lui demande dans le constructeur de me donner le choix qu'il a fait
+    //Et je le donne a la méthode
+    public Liste(SocieteChoix p_societeChoix) {
+        getRootPane().setDefaultButton(buttonAccueil);
         initFrame();
+        listeners();
+        remplissageJTable(p_societeChoix);
     }
 
 
     private void initFrame(){
         setContentPane(contentPane);
-        setTitle("Liste");
-        setSize(600, 400);
+
+        setSize(2500, 400);
         setVisible(false);
+        table1.setSize(1000, 400);
     }
 
     private void listeners(){
 
 
 
-        buttonOK.addActionListener(new ActionListener() {
+        buttonAccueil.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onOK();
             }
         });
 
-        buttonCancel.addActionListener(new ActionListener() {
+        buttonQuitter.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                onCancel();
+                dispose();
             }
         });
 
@@ -78,57 +80,51 @@ public class Liste extends JFrame {
         dispose();
     }
 
-    private void remplissageJTable(){
+    //Je lui demande en paramètre le choix qu'il a fait (Client ou Prospect)
+    private void remplissageJTable(SocieteChoix p_societeChoix){
         String[] entetes;
         DefaultTableModel tableModel;
 
-        if (societeChoix == SocieteChoix.CLIENT){
+        if (p_societeChoix == SocieteChoix.CLIENT){
             setTitle("Liste clients");
             entetes = new String[]{"ID", "Raison Sociale", "téléphone", "email", "commentaire", "adresse", "Chiffre d'affaire", "nb employé" };
             tableModel = new DefaultTableModel(entetes, 0);
             tableModel.addRow(entetes);
 
             for (Client listeClient : listeClient) {
-                if (societeChoix == SocieteChoix.CLIENT){
-                    tableModel.addRow(new Object[]{
-                            listeClient.getIdSociete(),
-                            listeClient.getRaisonSocialeSociete(),
-                            listeClient.getTelSociete(),
-                            listeClient.getEmailSociete(),
-                            listeClient.getCommentaireSociete(),
-                            listeClient.getAdresseSociete(),
-                            listeClient.getChiffreAffaire(),
-                            listeClient.getNbEmploye()
+                tableModel.addRow(new Object[]{
+                        listeClient.getIdSociete(),
+                        listeClient.getRaisonSocialeSociete(),
+                        listeClient.getTelSociete(),
+                        listeClient.getEmailSociete(),
+                        listeClient.getCommentaireSociete(),
+                        listeClient.getAdresseSociete(),
+                        listeClient.getChiffreAffaire(),
+                        listeClient.getNbEmploye()
 
-                    });
-                }
+                });
             }
-        } else if (societeChoix == SocieteChoix.PROSPECT) {
+            table1.setModel(tableModel);
+        } else if (p_societeChoix == SocieteChoix.PROSPECT) {
             setTitle("Liste prospects");
             entetes = new String[]{"ID", "Raison Sociale", "téléphone", "email", "commentaire", "adresse", "date prospection", "interet"};
             tableModel = new DefaultTableModel(entetes, 0);
             tableModel.addRow(entetes);
 
             for (Prospect listeProspect : listeProspect) {
-                if (societeChoix == SocieteChoix.PROSPECT){
-                    tableModel.addRow(new Object[]{
-                            listeProspect.getIdSociete(),
-                            listeProspect.getRaisonSocialeSociete(),
-                            listeProspect.getTelSociete(),
-                            listeProspect.getEmailSociete(),
-                            listeProspect.getCommentaireSociete(),
-                            listeProspect.getAdresseSociete(),
-                            listeProspect.getDateProspection().format(DATE_FORMATTER),
-                            listeProspect.getInterested()
+                tableModel.addRow(new Object[]{
+                        listeProspect.getIdSociete(),
+                        listeProspect.getRaisonSocialeSociete(),
+                        listeProspect.getTelSociete(),
+                        listeProspect.getEmailSociete(),
+                        listeProspect.getCommentaireSociete(),
+                        listeProspect.getAdresseSociete(),
+                        listeProspect.getDateProspection().format(DATE_FORMATTER),
+                        listeProspect.getInterested()
 
-                    });
-
-                }
+                });
             }
-
-
-        } else {
-            throw new IllegalArgumentException("une erreur est survenue ");
+            table1.setModel(tableModel);
         }
     }
 }

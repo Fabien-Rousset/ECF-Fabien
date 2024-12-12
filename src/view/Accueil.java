@@ -3,13 +3,12 @@ package view;
 import utilities.SocieteChoix;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 
 public class Accueil extends JFrame {
     private JPanel contentPane;
-    private JButton buttonOK;
-    private JButton buttonCancel;
+    private JButton buttonAccueil;
+    private JButton buttonQuitter;
     private JButton clientButton;
     private JButton prospectButton;
     private JButton modificationButton;
@@ -29,7 +28,7 @@ public class Accueil extends JFrame {
         initFrame();
         afficherPanel();
         listeners();
-        getRootPane().setDefaultButton(buttonOK);
+        getRootPane().setDefaultButton(buttonAccueil);
 
 
     }
@@ -84,7 +83,9 @@ public class Accueil extends JFrame {
             affichageButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    new Liste().setVisible(true);
+                    //Ici je lui donne le choix, que tu a set au préalable
+                    //Quand il a cliqué sur Client ou Prospect
+                    new Liste(societeChoix).setVisible(true);
 
                 }
             });
@@ -93,16 +94,17 @@ public class Accueil extends JFrame {
 
 
 
-            buttonOK.addActionListener(new ActionListener() {
+            buttonAccueil.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     onOK();
                 }
             });
 
-            buttonCancel.addActionListener(new ActionListener() {
+            buttonQuitter.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    onCancel();
+                    dispose();
                 }
+
             });
         }
 

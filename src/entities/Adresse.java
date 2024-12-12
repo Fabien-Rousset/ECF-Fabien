@@ -59,7 +59,7 @@ public class Adresse {
     public void setNumeroRue(String numeroRue) throws Exception {
 
         if(numeroRue == null || numeroRue.isEmpty()){
-            throw new ExoException("Ce champs doit être renseigné");
+            throw new ExoException("Le n° de rue doit être renseigné");
         }
         this.numeroRue = numeroRue;
     }
@@ -81,7 +81,7 @@ public class Adresse {
     public void setNomRue(String nomRue) throws ExoException {
 
         if(nomRue == null || nomRue.isEmpty()){
-            throw new ExoException("Ce champs doit etre renseigné");
+            throw new ExoException("Le nom de la rue doit être renseigné");
         }
         this.nomRue = nomRue;
     }
@@ -102,7 +102,7 @@ public class Adresse {
      */
     public void setCodePostal(String codePostal) throws ExoException {
         if (codePostal == null || codePostal.isEmpty()) {
-            throw new ExoException("Ce champs doit être renseigné");
+            throw new ExoException("Le code postal doit être renseigné");
         }
         if (!codePostal.matches("^\\d{5}$")) { // Validation directe
             throw new ExoException("Le code postal doit contenir 5 chiffres");
@@ -127,7 +127,7 @@ public class Adresse {
      */
     public void setVille(String ville) throws ExoException {
         if(ville == null || ville.isEmpty()){
-            throw new ExoException("Ce champs doit être remplit");
+            throw new ExoException("Le nom de la ville doit être renseigné");
         }
         this.ville = ville;
     }
@@ -135,11 +135,10 @@ public class Adresse {
 
     @Override
     public String toString() {
-        return "Adresse{" +
-                "numeroRue='" + numeroRue + '\'' +
-                ", nomRue='" + nomRue + '\'' +
-                ", codePostal='" + codePostal + '\'' +
-                ", ville='" + ville + '\'' +
-                '}';
+        return
+                "" + this.numeroRue +
+                "" + this.nomRue +
+                "" + this.codePostal +
+                "" + this.ville ;
     }
 }

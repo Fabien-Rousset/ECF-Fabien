@@ -121,8 +121,8 @@ public class Client extends Societe {
     @Override
     public String toString() {
         return super.toString() + "Client{" +
-                "chiffreAffaire=" + chiffreAffaire +
-                ", nbEmploye=" + nbEmploye +
+                "chiffreAffaire=" + this.chiffreAffaire +
+                ", nbEmploye=" + this.nbEmploye +
                 '}';
     }
 }

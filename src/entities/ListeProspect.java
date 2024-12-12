@@ -11,14 +11,12 @@ public class ListeProspect {
     /** Liste statique contenant tous les prospects. */
     public static final ArrayList<Prospect> listeProspect = new ArrayList<>();
 
-
-
     /**
      * Ajoute un prospect à la liste des prospects.
      *
      * @param prospect Le prospect à ajouter à la liste.
      */
-    public void ajouterProspect(Prospect prospect) {
+    public static void ajouterProspect(Prospect prospect) {
 
         listeProspect.add(prospect);
     }
