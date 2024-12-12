@@ -192,3 +192,5 @@ entities.ExoException: Ce champs doit être renseigné
 	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
 	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
 
+déc. 12, 2024 8:04:37 AM Main main
+INFO: Lancement de l'application
