@@ -22,7 +22,7 @@ public class MiseAjour extends JDialog {
     private JLabel interet;
     private JLabel email;
     private JLabel dateProspection;
-    private JTextField textField1;
+    private JTextField IdField;
     private JTextField raisonSocialeField;
     private JTextField textField5;
     private JTextField numRueField;
@@ -38,7 +38,11 @@ public class MiseAjour extends JDialog {
     private JTextField dateProspectField;
     private JTextField emailField;
 
+
+
     private final SocieteChoix societeChoix;
+    private Client client;
+    private Prospect prospect;
 
     public MiseAjour(SocieteChoix societeChoix) {
         this.societeChoix = societeChoix;
@@ -47,6 +51,28 @@ public class MiseAjour extends JDialog {
         changementLabel();
         getRootPane().setDefaultButton(buttonAccueil);
 
+    }
+
+    public MiseAjour(SocieteChoix societeChoix, Client client) {
+        this.societeChoix = societeChoix;
+        this.client = client;
+        initFrame();
+        listeners();
+        changementLabel();
+        getRootPane().setDefaultButton(buttonAccueil);
+        preRemplirChamps(societeChoix);
+        // ici je ne sais pas comment appeler ma méthode preRemplisage()
+
+    }
+
+    public MiseAjour(SocieteChoix societeChoix, Prospect prospect) {
+        this.societeChoix = societeChoix;
+        this.prospect = prospect;
+        initFrame();
+        listeners();
+        changementLabel();
+        getRootPane().setDefaultButton(buttonAccueil);
+        preRemplirChamps(societeChoix);
     }
 
 
@@ -76,6 +102,42 @@ public class MiseAjour extends JDialog {
     }
 }
 
+//private void affichageID(){
+//        if(societeChoix == SocieteChoix.CLIENT){
+//
+//            idField.setVisible(true);
+//            idClient.setEditable(false);
+//        }
+//}
+
+    private void preRemplirChamps(SocieteChoix p_societeChoix){
+
+
+        if (p_societeChoix == SocieteChoix.CLIENT) {
+            raisonSocialeField.setText(client.getRaisonSocialeSociete());
+            telephoneField.setText(client.getTelSociete());
+            emailField.setText(client.getEmailSociete());
+            numRueField.setText(client.getAdresseSociete().getNumeroRue());
+            nomRueField.setText(client.getAdresseSociete().getNomRue());
+            codePostalField.setText(client.getAdresseSociete().getCodePostal());
+            villeField.setText(client.getAdresseSociete().getVille());
+            chiffreAffaireField.setText(String.valueOf(client.getChiffreAffaire()));
+            nbEmployeField.setText(String.valueOf(client.getNbEmploye()));
+        } else if (p_societeChoix == SocieteChoix.PROSPECT) {
+            raisonSocialeField.setText(prospect.getRaisonSocialeSociete());
+            telephoneField.setText(prospect.getTelSociete());
+            emailField.setText(prospect.getEmailSociete());
+            numRueField.setText(prospect.getAdresseSociete().getNumeroRue());
+            nomRueField.setText(prospect.getAdresseSociete().getNomRue());
+            codePostalField.setText(prospect.getAdresseSociete().getCodePostal());
+            villeField.setText(prospect.getAdresseSociete().getVille());
+
+            dateProspectField.setText(String.valueOf(prospect.getDateProspection()));
+            boxInteret.getSelectedItem();
+        }
+
+    }
+
 
     private void listeners() {
 
@@ -102,7 +164,7 @@ public class MiseAjour extends JDialog {
                         );
 
                         // Ajouter le client à la liste
-                        new ListeClient().ajouterClient(client);
+                        ListeClient.ajouterClient(client);
 
                         // Afficher un message de confirmation
                         JOptionPane.showMessageDialog(contentPane, "Client ajouté avec succès !");
@@ -124,7 +186,7 @@ public class MiseAjour extends JDialog {
                         );
 
                         // Ajouter le prospect à la liste
-                        new ListeProspect().ajouterProspect(prospect);
+                        ListeProspect.ajouterProspect(prospect);
 
                         // Afficher un message de confirmation
                         JOptionPane.showMessageDialog(contentPane, "Prospect ajouté avec succès !");

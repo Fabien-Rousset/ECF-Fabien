@@ -18,7 +18,7 @@ public class Client extends Societe {
     private Integer nbEmploye;
 
     /** Identifiant unique global pour tous les clients. */
-    private static int idClient = 1;
+    public static int idClient = 1;
 
 
 

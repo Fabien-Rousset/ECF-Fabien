@@ -32,9 +32,9 @@ public class Liste extends JFrame {
     private void initFrame(){
         setContentPane(contentPane);
 
-        setSize(2500, 400);
+        setSize(1200, 400);
         setVisible(false);
-        table1.setSize(1000, 400);
+
     }
 
     private void listeners(){
