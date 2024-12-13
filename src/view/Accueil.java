@@ -1,61 +1,121 @@
 package view;
 
-import entities.*;
+import entities.Client;
+import entities.ListeClient;
+import entities.ListeProspect;
+import entities.Prospect;
 import utilities.SocieteChoix;
+import view.Liste;
+import view.MiseAjour;
 
 import javax.swing.*;
 import java.awt.event.*;
 
+/**
+ * Classe principale représentant l'accueil de l'application.
+ * Cette interface utilisateur permet la navigation entre différentes fonctionnalités
+ * telles que la gestion des clients et prospects (création, modification, suppression et affichage).
+ */
 public class Accueil extends JFrame {
-    private boolean isModification = false; // Indique si l'opération en cours est une modification ou non.
+
+    /** Indique si l'opération en cours est une modification ou non. */
+    private boolean isModification = false;
+
+    /** Panneau principal de contenu. */
     private JPanel contentPane;
+
+    /** Bouton pour revenir à l'accueil. */
     private JButton buttonAccueil;
+
+    /** Bouton pour quitter l'application. */
     private JButton buttonQuitter;
+
+    /** Bouton pour accéder à la gestion des clients. */
     private JButton clientButton;
+
+    /** Bouton pour accéder à la gestion des prospects. */
     private JButton prospectButton;
+
+    /** Bouton pour effectuer une modification. */
     private JButton modificationButton;
+
+    /** Bouton pour créer un nouveau client ou prospect. */
     private JButton creationButton;
+
+    /** Bouton pour supprimer un client ou prospect. */
     private JButton suppressionButton;
+
+    /** Bouton pour afficher la liste des clients ou prospects. */
     private JButton affichageButton;
+
+    /** Panneau contenant les boutons quitter et accueil. */
     private JPanel accueilQuitter;
+
+    /** Panneaux secondaires affichés en fonction des interactions. */
     private JPanel Accueil2;
     private JPanel Accueil1;
-    private JComboBox comboBox1;
     private JPanel Accueil3;
+
+    /** Combobox pour afficher et sélectionner des clients ou prospects. */
+    private JComboBox<String> comboBox1;
+
+    /** Label indiquant l'état ou le mode courant (clients, prospects, etc.). */
     private JLabel change;
+
+    /** Bouton pour valider une action sélectionnée. */
     private JButton validerChoixButton;
+
+    /** Enumération indiquant le type de gestion en cours (client ou prospect). */
     private SocieteChoix societeChoix;
+
+    /** Label pour afficher un message contextuel ou un titre de section. */
     private JLabel gestionLabel;
 
+    /**
+     * Constructeur principal de la classe Accueil.
+     * Initialise les composants graphiques et configure les écouteurs d'événements.
+     */
     public Accueil() {
         initFrame();
         afficherPanel();
         listeners();
         getRootPane().setDefaultButton(buttonAccueil);
-
     }
 
+    /**
+     * Initialise la fenêtre principale avec ses dimensions et son titre.
+     */
     private void initFrame() {
         setContentPane(contentPane);
         setTitle("Accueil");
         setSize(900, 600);
     }
 
+    /**
+     * Cache certains panneaux secondaires par défaut lors de l'initialisation.
+     */
     private void afficherPanel() {
         Accueil2.setVisible(false);
         Accueil3.setVisible(false);
     }
 
+    /**
+     * Préremplit les champs si nécessaire.
+     * Cette méthode est prévue pour une implémentation future si besoin.
+     */
     public void preRemplirChamps() {
         // À implémenter si nécessaire.
     }
 
+    /**
+     * Configure les écouteurs d'événements pour les différents boutons de l'interface.
+     */
     private void listeners() {
         clientButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Accueil2.setVisible(true);
-                change.setText("Gestion des clients."); // Met à jour le texte.
+                change.setText("Gestion des clients."); // Met à jour le texte pour indiquer la gestion des clients.
                 societeChoix = SocieteChoix.CLIENT;
             }
         });
@@ -64,7 +124,7 @@ public class Accueil extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Accueil2.setVisible(true);
-                change.setText("Gestion des prospects."); // Met à jour le texte.
+                change.setText("Gestion des prospects."); // Met à jour le texte pour indiquer la gestion des prospects.
                 societeChoix = SocieteChoix.PROSPECT;
             }
         });
@@ -72,29 +132,26 @@ public class Accueil extends JFrame {
         creationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new MiseAjour(societeChoix).setVisible(true);
-                change.setText("Gestion des clients.");
+                new MiseAjour(societeChoix).setVisible(true); // Ouvre la fenêtre de création pour clients/prospects.
+                change.setText("Création en cours.");
             }
         });
 
         affichageButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new Liste(societeChoix).setVisible(true);
+                new Liste(societeChoix).setVisible(true); // Ouvre la liste des clients/prospects.
             }
         });
 
         modificationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Affiche le panel Accueil3.
-                Accueil3.setVisible(true);
-
-                // Vérifie si un choix a été fait.
+                Accueil3.setVisible(true); // Affiche le panneau pour la sélection.
                 if (societeChoix == SocieteChoix.CLIENT) {
-                    remplirComboBoxClients(); // Appelle une méthode pour remplir avec les clients.
+                    remplirComboBoxClients(); // Remplit la liste déroulante avec les clients.
                 } else if (societeChoix == SocieteChoix.PROSPECT) {
-                    remplirComboBoxProspects(); // Appelle une méthode pour remplir avec les prospects.
+                    remplirComboBoxProspects(); // Remplit la liste déroulante avec les prospects.
                 } else {
                     JOptionPane.showMessageDialog(
                             Accueil.this,
@@ -109,14 +166,11 @@ public class Accueil extends JFrame {
         suppressionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Affiche le panel Accueil3.
-                Accueil3.setVisible(true);
-
-                // Vérifie si un choix a été fait.
+                Accueil3.setVisible(true); // Affiche le panneau pour la sélection.
                 if (societeChoix == SocieteChoix.CLIENT) {
-                    remplirComboBoxClients(); // Appelle une méthode pour remplir avec les clients.
+                    remplirComboBoxClients();
                 } else if (societeChoix == SocieteChoix.PROSPECT) {
-                    remplirComboBoxProspects(); // Appelle une méthode pour remplir avec les prospects.
+                    remplirComboBoxProspects();
                 } else {
                     JOptionPane.showMessageDialog(
                             Accueil.this,
@@ -131,49 +185,23 @@ public class Accueil extends JFrame {
         validerChoixButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Vérifie si un type a été sélectionné (Client ou Prospect).
-                if (societeChoix == SocieteChoix.CLIENT || societeChoix == SocieteChoix.PROSPECT) {
-                    // Récupère la valeur sélectionnée dans la combobox.
-                    String selectedValue = (String) comboBox1.getSelectedItem();
+                String selectedValue = (String) comboBox1.getSelectedItem();
 
-                    if (selectedValue != null) {
-                        // Détermine l'index sélectionné dans la comboBox.
-                        int index = comboBox1.getSelectedIndex();
+                if (selectedValue != null) {
+                    int index = comboBox1.getSelectedIndex();
 
-                        // Vérifie si l'index est valide.
-                        if (index >= 0) {
-                            if (societeChoix == SocieteChoix.CLIENT) {
-                                // Récupère l'objet Client correspondant à l'index.
-                                Client client = ListeClient.listeClient.get(index);
-
-
-                                // Transmet les données du client à la page MiseAjour.
-                                new MiseAjour(societeChoix, client).setVisible(true);
-
-                            } else if (societeChoix == SocieteChoix.PROSPECT) {
-                                // Récupère l'objet Prospect correspondant à l'index.
-                                Prospect prospect = ListeProspect.listeProspect.get(index);
-
-                                // Logique supplémentaire : récupérer les détails du prospect.
-                                String raisonSociale = prospect.getRaisonSocialeSociete();
-                                String telephone = prospect.getTelSociete();
-                                String email = prospect.getEmailSociete();
-
-                                // Transmet les données du prospect à la page MiseAjour.
-                                new MiseAjour(societeChoix, prospect).setVisible(true);
-                            }
-                        } else {
-                            JOptionPane.showMessageDialog(
-                                    null,
-                                    "Aucun élément valide sélectionné dans la liste.",
-                                    "Erreur",
-                                    JOptionPane.WARNING_MESSAGE
-                            );
+                    if (index >= 0) {
+                        if (societeChoix == SocieteChoix.CLIENT) {
+                            Client client = ListeClient.listeClient.get(index);
+                            new MiseAjour(societeChoix, client, true).setVisible(true); // Mode readonly
+                        } else if (societeChoix == SocieteChoix.PROSPECT) {
+                            Prospect prospect = ListeProspect.listeProspect.get(index);
+                            new MiseAjour(societeChoix, prospect, true).setVisible(true); // Mode readonly
                         }
                     } else {
                         JOptionPane.showMessageDialog(
                                 null,
-                                "Veuillez sélectionner un élément dans la liste.",
+                                "Aucun élément valide sélectionné dans la liste.",
                                 "Erreur",
                                 JOptionPane.WARNING_MESSAGE
                         );
@@ -181,7 +209,7 @@ public class Accueil extends JFrame {
                 } else {
                     JOptionPane.showMessageDialog(
                             null,
-                            "Veuillez d'abord sélectionner 'Client' ou 'Prospect'.",
+                            "Veuillez sélectionner un élément dans la liste.",
                             "Erreur",
                             JOptionPane.WARNING_MESSAGE
                     );
@@ -189,38 +217,49 @@ public class Accueil extends JFrame {
             }
         });
 
-
         buttonAccueil.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                onOK();
+                onOK(); // Ferme la fenêtre et revient à l'accueil.
             }
         });
 
         buttonQuitter.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                dispose();
+                dispose(); // Quitte l'application.
             }
         });
     }
 
+    /**
+     * Remplit la combobox avec les noms des clients disponibles.
+     */
     private void remplirComboBoxClients() {
         comboBox1.removeAllItems(); // Vide la combobox.
         for (Client client : ListeClient.listeClient) {
-            comboBox1.addItem(client.getRaisonSocialeSociete()); // Ajoute la raison sociale des clients.
+            comboBox1.addItem(client.getRaisonSocialeSociete()); // Ajoute les noms des clients.
         }
     }
 
+    /**
+     * Remplit la combobox avec les noms des prospects disponibles.
+     */
     private void remplirComboBoxProspects() {
         comboBox1.removeAllItems(); // Vide la combobox.
         for (Prospect prospect : ListeProspect.listeProspect) {
-            comboBox1.addItem(prospect.getRaisonSocialeSociete()); // Ajoute la raison sociale des prospects.
+            comboBox1.addItem(prospect.getRaisonSocialeSociete()); // Ajoute les noms des prospects.
         }
     }
 
+    /**
+     * Ferme la fenêtre actuelle.
+     */
     private void onOK() {
         dispose();
     }
 
+    /**
+     * Annule et ferme la fenêtre actuelle.
+     */
     private void onCancel() {
         dispose();
     }

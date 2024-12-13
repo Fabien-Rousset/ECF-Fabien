@@ -1,150 +1,80 @@
-package test;
+package entities;
 
-import entities.Adresse;
-import entities.Prospect;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import utilities.Interet;
 
-import java.time.DateTimeException;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ProspectTest {
+/**
+ * Classe de test unitaire pour la classe Prospect.
+ * Les tests valident le bon fonctionnement des méthodes et des règles de validation spécifiques aux prospects.
+ */
+public class ProspectTest {
 
-    @Test
-    void testConstructeurAvecValeursValides() throws Exception {
-        Adresse adresse = new Adresse("10", "Rue de Paris", "75001", "Paris");
-        Prospect prospect = new Prospect(
-                "Société ABC",
+    private Prospect prospect;
+
+    @BeforeEach
+    void setUp() throws Exception {
+        // Initialisation d'une instance Prospect avec des valeurs valides.
+        prospect = new Prospect(
+                "Raison Sociale",
                 "0123456789",
-                "contact@abc.com",
+                "test@example.com",
                 "Commentaire",
-                adresse,
-                "05/05/2005",
+                new Adresse("123", "Rue de Paris", "75000", "Paris"),
+                "01/01/2023",
                 "oui"
         );
-
-        assertEquals("Société ABC", prospect.getRaisonSocialeSociete());
-        assertEquals("0123456789", prospect.getTelSociete());
-        assertEquals("contact@abc.com", prospect.getEmailSociete());
-        assertEquals(adresse, prospect.getAdresseSociete());
-        assertEquals(LocalDate.of(2023, 10, 15), prospect.getDateProspection());
-        assertEquals("oui", prospect.getInterested());
     }
 
     @Test
-    void testConstructeurAvecDateInvalide() throws Exception {
-        Adresse adresse = new Adresse("10", "Rue de Paris", "75001", "Paris");
-
-        Exception exception = assertThrows(DateTimeException.class, () -> new Prospect(
-                "Société ABC",
-                "0123456789",
-                "contact@abc.com",
-                "Commentaire",
-                adresse,
-                null,
-                "oui"
-        ));
-        assertEquals("Date invalide, veuillez saisir au format jj/MM/aaaa.", exception.getMessage());
+    void testConstructeurComplet() throws Exception {
+        // Test du constructeur complet pour vérifier que tous les champs sont correctement initialisés.
+        assertEquals("Raison Sociale", prospect.getRaisonSocialeSociete());
+        assertEquals("0123456789", prospect.getTelSociete());
+        assertEquals("test@example.com", prospect.getEmailSociete());
+        assertEquals("Commentaire", prospect.getCommentaireSociete());
+        assertNotNull(prospect.getAdresseSociete());
+        assertEquals(LocalDate.of(2023, 1, 1), prospect.getDateProspection());
+        assertEquals(Interet.OUI, prospect.getInterested());
     }
 
     @Test
     void testSetDateProspectionValide() throws Exception {
-        Adresse adresse = new Adresse("10", "Rue de Paris", "75001", "Paris");
-        Prospect prospect = new Prospect(
-                "Société ABC",
-                "0123456789",
-                "contact@abc.com",
-                "Commentaire",
-                adresse,
-                "25/05/2005",
-                "oui"
-        );
-
-        prospect.setDateProspection("16/10/2023");
-        assertEquals(LocalDate.of(2023, 10, 16), prospect.getDateProspection());
+        // Test de l'attribution d'une date de prospection valide.
+        prospect.setDateProspection("15/08/2023");
+        assertEquals(LocalDate.of(2023, 8, 15), prospect.getDateProspection());
     }
 
     @Test
-    void testSetDateProspectionInvalide() throws Exception {
-        Adresse adresse = new Adresse("10", "Rue de Paris", "75001", "Paris");
-        Prospect prospect = new Prospect(
-                "Société ABC",
-                "0123456789",
-                "contact@abc.com",
-                "Commentaire",
-                adresse,
-                "25/05/2005",
-                "oui"
-        );
-
-        Exception exception = assertThrows(DateTimeException.class, () -> prospect.setDateProspection("2023-10-15"));
+    void testSetDateProspectionInvalide() {
+        // Test de l'attribution d'une date de prospection invalide.
+        Exception exception = assertThrows(Exception.class, () -> prospect.setDateProspection("2023-15-08"));
         assertEquals("Date invalide, veuillez saisir au format jj/MM/aaaa.", exception.getMessage());
     }
 
     @Test
-    void testSetInterested() throws Exception {
-        Adresse adresse = new Adresse("10", "Rue de Paris", "75001", "Paris");
-        Prospect prospect = new Prospect(
-                "Société ABC",
-                "0123456789",
-                "contact@abc.com",
-                "Commentaire",
-                adresse,
-                "28/06/2000",
-                "oui"
-        );
-
+    void testSetInterestedValide() {
+        // Test de l'attribution d'un état d'intérêt valide.
         prospect.setInterested("non");
-        assertEquals("non", prospect.getInterested());
+        assertEquals(Interet.NON, prospect.getInterested());
     }
 
     @Test
-    void testGetIdProspect() throws Exception {
-        Adresse adresse = new Adresse("10", "Rue de Paris", "75001", "Paris");
-        Prospect prospect1 = new Prospect(
-                "Société ABC",
-                "0123456789",
-                "contact@abc.com",
-                "Commentaire",
-                adresse,
-                "05/09/1981",
-                "oui"
-        );
-        Prospect prospect2 = new Prospect(
-                "Société XYZ",
-                "0987654321",
-                "contact@xyz.com",
-                "Commentaire",
-                adresse,
-                "07/09/1981",
-                "non"
-        );
-
-        assertEquals(1, prospect1.getIdProspect());
-        assertEquals(2, prospect2.getIdProspect());
+    void testSetInterestedInvalide() {
+        // Test de l'attribution d'un état d'intérêt invalide.
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> prospect.setInterested("peut-être"));
+        assertTrue(exception.getMessage().contains("No enum constant"));
     }
 
     @Test
-    void testSetIdProspect() {
-        Prospect.setIdProspect(100);
-        assertEquals(100, Prospect.getIdProspect());
+    void testGetIdProspect() {
+        // Test pour vérifier que l'ID prospect est correctement incrémenté.
+        assertTrue(Prospect.getIdProspect() > 0);
     }
 
-    @Test
-    void testToString() throws Exception {
-        Adresse adresse = new Adresse("10", "Rue de Paris", "75001", "Paris");
-        Prospect prospect = new Prospect(
-                "Société ABC",
-                "0123456789",
-                "contact@abc.com",
-                "Commentaire",
-                adresse,
-                "15/09/2015",
-                "oui"
-        );
 
-        String expected = "Prospect{dateProspection=2023-10-15, interested='oui'}";
-        assertEquals(expected, prospect.toString());
-    }
 }

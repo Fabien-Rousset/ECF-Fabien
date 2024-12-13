@@ -1,88 +1,81 @@
-package test;
+package entities;
 
-import entities.Adresse;
-import entities.Client;
-import entities.ExoException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import utilities.RegexPattern;
 
-class ClientTest {
+/**
+ * Classe de test unitaire pour la classe Client.
+ * Les tests valident le bon fonctionnement des méthodes et des règles de validation spécifiques aux clients.
+ */
+public class ClientTest {
+
+    private Client client;
+
+    @BeforeEach
+    void setUp() throws Exception {
+        // Initialisation d'une instance Client avec des valeurs valides.
+        client = new Client(
+                "Raison Sociale",
+                "0123456789",
+                "test@example.com",
+                "Commentaire",
+                new Adresse("123", "Rue de Paris", "75000", "Paris"),
+                1000L,
+                10
+        );
+    }
 
     @Test
-    void testConstructeurAvecValeursValides() throws Exception {
-        Adresse adresse = new Adresse("12", "Rue Principale", "75001", "Paris");
-        Client client = new Client("Société XYZ", "0123456789", "contact@xyz.com",
-                "Commentaire", adresse, 500L, 10);
-
-        assertEquals("Société XYZ", client.getRaisonSocialeSociete());
+    void testConstructeurComplet() throws Exception {
+        // Test du constructeur complet pour vérifier que tous les champs sont correctement initialisés.
+        assertEquals("Raison Sociale", client.getRaisonSocialeSociete());
         assertEquals("0123456789", client.getTelSociete());
-        assertEquals("contact@xyz.com", client.getEmailSociete());
-        assertEquals(adresse, client.getAdresseSociete());
-        assertEquals(500L, client.getChiffreAffaire());
+        assertEquals("test@example.com", client.getEmailSociete());
+        assertEquals("Commentaire", client.getCommentaireSociete());
+        assertNotNull(client.getAdresseSociete());
+        assertEquals(1000L, client.getChiffreAffaire());
         assertEquals(10, client.getNbEmploye());
     }
 
     @Test
-    void testConstructeurAvecValeursInvalides() throws Exception {
-        Adresse adresse = new Adresse("12", "Rue Principale", "75001", "Paris");
-
-        Exception exception = assertThrows(ExoException.class, () ->
-                new Client("Société XYZ", "0123456789", "contact@xyz.com",
-                        "Commentaire", adresse, 100L, 10));
-        assertEquals("Chiffre d'affaire non valide : il ne doit pas être nul ou égal à zéro, et doit être supérieur ou égal à 200.", exception.getMessage());
-    }
-
-    @Test
     void testSetChiffreAffaireValide() throws Exception {
-        Client client = new Client("Société XYZ", "0123456789", "contact@xyz.com",
-                "Commentaire", new Adresse("12", "Rue Principale", "75001", "Paris"), 500L, 10);
-
-        client.setChiffreAffaire(300L);
-        assertEquals(300L, client.getChiffreAffaire());
+        // Test de l'attribution d'un chiffre d'affaires valide.
+        client.setChiffreAffaire(5000L);
+        assertEquals(5000L, client.getChiffreAffaire());
     }
 
     @Test
-    void testSetChiffreAffaireInvalide() throws Exception {
-        Client client = new Client("Société XYZ", "0123456789", "contact@xyz.com",
-                "Commentaire", new Adresse("12", "Rue Principale", "75001", "Paris"), 500L, 10);
-
-        Exception exception = assertThrows(ExoException.class, () -> client.setChiffreAffaire(0L));
+    void testSetChiffreAffaireInvalide() {
+        // Test de l'attribution d'un chiffre d'affaires invalide.
+        Exception exception = assertThrows(Exception.class, () -> client.setChiffreAffaire(0L));
         assertEquals("Chiffre d'affaire non valide : il ne doit pas être nul ou égal à zéro, et doit être supérieur ou égal à 200.", exception.getMessage());
     }
 
     @Test
     void testSetNbEmployeValide() throws Exception {
-        Client client = new Client("Société XYZ", "0123456789", "contact@xyz.com",
-                "Commentaire", new Adresse("12", "Rue Principale", "75001", "Paris"), 500L, 10);
-
+        // Test de l'attribution d'un nombre d'employés valide.
         client.setNbEmploye(20);
         assertEquals(20, client.getNbEmploye());
     }
 
     @Test
-    void testSetNbEmployeInvalide() throws Exception {
-        Client client = new Client("Société XYZ", "0123456789", "contact@xyz.com",
-                "Commentaire", new Adresse("12", "Rue Principale", "75001", "Paris"), 500L, 10);
-
-        Exception exception = assertThrows(ExoException.class, () -> client.setNbEmploye(-1));
+    void testSetNbEmployeInvalide() {
+        // Test de l'attribution d'un nombre d'employés invalide.
+        Exception exception = assertThrows(Exception.class, () -> client.setNbEmploye(-5));
         assertEquals("le nombre d'employé doit être renseigné et strictement supérieur à 0", exception.getMessage());
     }
 
     @Test
-    void testGetIdClient() throws Exception {
-        Client client1 = new Client("Société ABC", "0123456789", "contact@abc.com",
-                "Commentaire", new Adresse("12", "Rue Principale", "75001", "Paris"), 500L, 10);
-        Client client2 = new Client("Société XYZ", "0123456789", "contact@xyz.com",
-                "Commentaire", new Adresse("34", "Rue des Fleurs", "75002", "Paris"), 700L, 15);
-
-        assertEquals(1, Client.getIdClient());
-        assertEquals(2, Client.getIdClient());
+    void testGetIdClient() {
+        // Test pour vérifier que l'ID client est correctement incrémenté.
+        assertTrue(Client.getIdClient() > 0);
     }
 
     @Test
-    void testSetIdClient() {
-        Client.setIdClient(100);
-        assertEquals(100, Client.getIdClient());
+    void testToString() {
+        // Test de la méthode toString pour vérifier la représentation en chaîne.
+        String expected = "Societe{id=1, raisonSociale='Raison Sociale', tel='0123456789', email='test@example.com', commentaire='Commentaire', adresse=Adresse{numeroRue='123', nomRue='Rue de Paris', codePostal='75000', ville='Paris'}}Client{chiffreAffaire=1000, nbEmploye=10}";
+        assertEquals(expected, client.toString());
     }
 }

@@ -51,7 +51,6 @@ public class Prospect extends Societe {
 //     * Modifie la date de prospection.
      **/
     public void setDateProspection(String dateProspectionString) throws ExoException {
-        System.out.println(dateProspectionString+"test");
             // Tente de parser la chaîne avec le formatteur de date
         // Si la conversion est réussie, la valeur est affectée
         try{

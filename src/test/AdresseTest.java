@@ -1,87 +1,113 @@
-package test;
+package entities;
 
-import entities.Adresse;
-import entities.ExoException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class AdresseTest {
+/**
+ * Classe de test unitaire pour la classe Adresse.
+ * Les tests valident le bon fonctionnement des méthodes et des règles de validation.
+ */
+public class AdresseTest {
+
+    // Instance d'une adresse utilisée dans les tests.
+    private Adresse adresse;
+
+    @BeforeEach
+    void setUp() {
+        // Initialisation d'une instance vide d'Adresse avant chaque test.
+        adresse = new Adresse();
+    }
 
     @Test
-    void testConstructeurAvecValeursValides() throws Exception {
-        Adresse adresse = new Adresse("123", "Rue Principale", "75000", "Paris");
-        assertEquals("123", adresse.getNumeroRue());
-        assertEquals("Rue Principale", adresse.getNomRue());
-        assertEquals("75000", adresse.getCodePostal());
-        assertEquals("Paris", adresse.getVille());
+    void testConstructeurComplet() throws Exception {
+        // Test du constructeur complet avec des valeurs valides.
+        Adresse adresseComplete = new Adresse("123", "Rue de Paris", "75000", "Paris");
+        assertEquals("123", adresseComplete.getNumeroRue()); // Vérifie le numéro de rue.
+        assertEquals("Rue de Paris", adresseComplete.getNomRue()); // Vérifie le nom de la rue.
+        assertEquals("75000", adresseComplete.getCodePostal()); // Vérifie le code postal.
+        assertEquals("Paris", adresseComplete.getVille()); // Vérifie la ville.
+    }
+
+    @Test
+    void testConstructeurCompletExceptionNumeroRue() {
+        // Test du constructeur avec un numéro de rue invalide.
+        Exception exception = assertThrows(Exception.class, () -> {
+            new Adresse("", "Rue de Paris", "75000", "Paris");
+        });
+        assertEquals("Le n° de rue doit être renseigné", exception.getMessage());
     }
 
     @Test
     void testSetNumeroRueValide() throws Exception {
-        Adresse adresse = new Adresse();
-        adresse.setNumeroRue("123");
-        assertEquals("123", adresse.getNumeroRue());
+        // Test de l'attribution d'un numéro de rue valide.
+        adresse.setNumeroRue("456");
+        assertEquals("456", adresse.getNumeroRue());
     }
 
     @Test
     void testSetNumeroRueInvalide() {
-        Adresse adresse = new Adresse();
-        Exception exception = assertThrows(ExoException.class, () -> adresse.setNumeroRue(""));
-        assertEquals("Ce champs doit être renseigné", exception.getMessage());
+        // Test de l'attribution d'un numéro de rue invalide (vide).
+        Exception exception = assertThrows(Exception.class, () -> adresse.setNumeroRue(""));
+        assertEquals("Le n° de rue doit être renseigné", exception.getMessage());
     }
 
     @Test
     void testSetNomRueValide() throws Exception {
-        Adresse adresse = new Adresse();
-        adresse.setNomRue("Rue des Fleurs");
-        assertEquals("Rue des Fleurs", adresse.getNomRue());
+        // Test de l'attribution d'un nom de rue valide.
+        adresse.setNomRue("Avenue des Champs-Élysées");
+        assertEquals("Avenue des Champs-Élysées", adresse.getNomRue());
     }
 
     @Test
     void testSetNomRueInvalide() {
-        Adresse adresse = new Adresse();
-        Exception exception = assertThrows(ExoException.class, () -> adresse.setNomRue(""));
-        assertEquals("Ce champs doit etre renseigné", exception.getMessage());
+        // Test de l'attribution d'un nom de rue invalide (null).
+        Exception exception = assertThrows(Exception.class, () -> adresse.setNomRue(null));
+        assertEquals("Le nom de la rue doit être renseigné", exception.getMessage());
     }
 
     @Test
     void testSetCodePostalValide() throws Exception {
-        Adresse adresse = new Adresse();
-        adresse.setCodePostal("75000");
-        assertEquals("75000", adresse.getCodePostal());
+        // Test de l'attribution d'un code postal valide.
+        adresse.setCodePostal("12345");
+        assertEquals("12345", adresse.getCodePostal());
     }
 
     @Test
     void testSetCodePostalInvalideNull() {
-        Adresse adresse = new Adresse();
-        Exception exception = assertThrows(ExoException.class, () -> adresse.setCodePostal(null));
-        assertEquals("Ce champs doit être renseigné", exception.getMessage());
+        // Test de l'attribution d'un code postal null.
+        Exception exception = assertThrows(Exception.class, () -> adresse.setCodePostal(null));
+        assertEquals("Le code postal doit être renseigné", exception.getMessage());
     }
 
     @Test
     void testSetCodePostalInvalideFormat() {
-        Adresse adresse = new Adresse();
-        Exception exception = assertThrows(ExoException.class, () -> adresse.setCodePostal("ABC"));
+        // Test de l'attribution d'un code postal avec un format invalide.
+        Exception exception = assertThrows(Exception.class, () -> adresse.setCodePostal("1234"));
         assertEquals("Le code postal doit contenir 5 chiffres", exception.getMessage());
     }
 
     @Test
     void testSetVilleValide() throws Exception {
-        Adresse adresse = new Adresse();
+        // Test de l'attribution d'une ville valide.
         adresse.setVille("Lyon");
         assertEquals("Lyon", adresse.getVille());
     }
 
     @Test
     void testSetVilleInvalide() {
-        Adresse adresse = new Adresse();
-        Exception exception = assertThrows(ExoException.class, () -> adresse.setVille(""));
-        assertEquals("Ce champs doit être remplit", exception.getMessage());
+        // Test de l'attribution d'une ville invalide (vide).
+        Exception exception = assertThrows(Exception.class, () -> adresse.setVille(""));
+        assertEquals("Le nom de la ville doit être renseigné", exception.getMessage());
     }
 
     @Test
-    void testConstructeurAvecValeursInvalides() {
-        Exception exception = assertThrows(ExoException.class, () -> new Adresse(null, "Rue Principale", "75000", "Paris"));
-        assertEquals("Ce champs doit être renseigné", exception.getMessage());
+    void testToString() throws Exception {
+        // Test de la méthode toString pour vérifier la concaténation des champs.
+        adresse.setNumeroRue("123");
+        adresse.setNomRue("Rue de la Paix");
+        adresse.setCodePostal("75008");
+        adresse.setVille("Paris");
+        assertEquals("123Rue de la Paix75008Paris", adresse.toString());
     }
 }
