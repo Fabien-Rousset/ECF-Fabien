@@ -1,6 +1,7 @@
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 import com.formdev.flatlaf.FlatIntelliJLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 import entities.*;
 import entities.ListeClient.*;
 
@@ -24,7 +25,7 @@ public class Main {
         try {
             initialiserLogger();
 
-            FlatIntelliJLaf.setup();
+            FlatLightLaf.setup();
             new Accueil().setVisible(true);
 
 
