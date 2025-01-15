@@ -46,6 +46,7 @@ public class MiseAjour extends JDialog {
     private final SocieteChoix societeChoix;
     private Client client;
     private Prospect prospect;
+    private Boolean isCreation;
 
     /**
      * Constructeur pour créer une nouvelle boîte de dialogue pour ajouter ou modifier un Client ou un Prospect.
@@ -57,6 +58,7 @@ public class MiseAjour extends JDialog {
         listeners();
         changementLabel();
         getRootPane().setDefaultButton(buttonAccueil);
+        isCreation = true;
         if (societeChoix == SocieteChoix.CLIENT) {
             Client.renvoiProchainId();
             IdField.setText(String.valueOf(Client.renvoiProchainId()));
@@ -79,6 +81,7 @@ public class MiseAjour extends JDialog {
         listeners();
         changementLabel();
         preRemplirChamps(societeChoix);
+        isCreation = false;
         if (isReadOnly) {
             rendreChampsNonEditables();
         } else {
@@ -99,6 +102,7 @@ public class MiseAjour extends JDialog {
         listeners();
         changementLabel();
         preRemplirChamps(societeChoix);
+        isCreation = false;
         if (isReadOnly) {
             rendreChampsNonEditables();
         } else {
@@ -220,40 +224,58 @@ public class MiseAjour extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    if (societeChoix == SocieteChoix.CLIENT) {
-                        Client client = new Client(
-                                raisonSocialeField.getText().trim(),
-                                telephoneField.getText().trim(),
-                                emailField.getText().trim(),
-                                commentaire.getText().trim(),
-                                new Adresse(
-                                        numRueField.getText().trim(),
-                                        nomRueField.getText().trim(),
-                                        codePostalField.getText().trim(),
-                                        villeField.getText().trim()
-                                ),
-                                Long.parseLong(chiffreAffaireField.getText().trim()),
-                                Integer.parseInt(nbEmployeField.getText().trim())
-                        );
-                        ListeClient.ajouterClient(client);
-                        JOptionPane.showMessageDialog(contentPane, "Client ajouté avec succès !");
-                    } else if (societeChoix == SocieteChoix.PROSPECT) {
-                        Prospect prospect = new Prospect(
-                                raisonSocialeField.getText().trim(),
-                                telephoneField.getText().trim(),
-                                emailField.getText().trim(),
-                                commentaire.getText().trim(),
-                                new Adresse(
-                                        numRueField.getText().trim(),
-                                        nomRueField.getText().trim(),
-                                        codePostalField.getText().trim(),
-                                        villeField.getText().trim()
-                                ),
-                                LocalDate.parse(dateProspectField.getText()),
-                                boxInteret.getSelectedItem().toString()
-                        );
-                        ListeProspect.ajouterProspect(prospect);
-                        JOptionPane.showMessageDialog(contentPane, "Prospect ajouté avec succès !");
+                    if (isCreation){
+                        if (societeChoix == SocieteChoix.CLIENT) {
+                            Client client = new Client(
+                                    raisonSocialeField.getText().trim(),
+                                    telephoneField.getText().trim(),
+                                    emailField.getText().trim(),
+                                    commentaire.getText().trim(),
+                                    new Adresse(
+                                            numRueField.getText().trim(),
+                                            nomRueField.getText().trim(),
+                                            codePostalField.getText().trim(),
+                                            villeField.getText().trim()
+                                    ),
+                                    Long.parseLong(chiffreAffaireField.getText().trim()),
+                                    Integer.parseInt(nbEmployeField.getText().trim())
+                            );
+                            ListeClient.ajouterClient(client);
+                            JOptionPane.showMessageDialog(contentPane, "Client ajouté avec succès !");
+                        } else if (societeChoix == SocieteChoix.PROSPECT) {
+                            Prospect prospect = new Prospect(
+                                    raisonSocialeField.getText().trim(),
+                                    telephoneField.getText().trim(),
+                                    emailField.getText().trim(),
+                                    commentaire.getText().trim(),
+                                    new Adresse(
+                                            numRueField.getText().trim(),
+                                            nomRueField.getText().trim(),
+                                            codePostalField.getText().trim(),
+                                            villeField.getText().trim()
+                                    ),
+                                    LocalDate.parse(dateProspectField.getText()),
+                                    boxInteret.getSelectedItem().toString()
+                            );
+                            ListeProspect.ajouterProspect(prospect);
+                            JOptionPane.showMessageDialog(contentPane, "Prospect ajouté avec succès !");
+                        }
+                    } else {
+                        if (societeChoix == SocieteChoix.CLIENT) {
+                            client.setRaisonSocialeSociete(raisonSocialeField.getText().trim());
+                            client.setTelSociete(telephoneField.getText().trim());
+                            client.setEmailSociete(emailField.getText().trim());
+                            client.setChiffreAffaire(Long.parseLong(chiffreAffaireField.getText().trim()));
+                            client.setNbEmploye(Integer.parseInt(nbEmployeField.getText().trim()));
+                            client.setAdresseSociete(new Adresse(numRueField.getText(), nomRueField.getText(), codePostalField.getText(), villeField.getText()));
+                        } else if (societeChoix == SocieteChoix.PROSPECT) {
+                            prospect.setRaisonSocialeSociete(raisonSocialeField.getText().trim());
+                            prospect.setTelSociete(telephoneField.getText().trim());
+                            prospect.setEmailSociete(emailField.getText().trim());
+                            prospect.setDateProspection(LocalDate.parse(dateProspectField.getText().trim()));
+                            prospect.setInterested(interet.getText());
+                            prospect.setAdresseSociete(new Adresse(numRueField.getText(), nomRueField.getText(), codePostalField.getText(), villeField.getText()));
+                        }
                     }
                 } catch (DateTimeParseException de) {
                     LOGGER.log(Level.INFO, "Erreur de parsing de la date", de);

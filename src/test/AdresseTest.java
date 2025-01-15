@@ -1,5 +1,6 @@
-package entities;
+package test;
 
+import entities.Adresse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -41,7 +42,7 @@ public class AdresseTest {
     @Test
     void testSetNumeroRueValide() throws Exception {
         // Test de l'attribution d'un numéro de rue valide.
-        adresse.setNumeroRue("456");
+        assertDoesNotThrow(() -> adresse.setNumeroRue("456"));
         assertEquals("456", adresse.getNumeroRue());
     }
 
@@ -55,7 +56,7 @@ public class AdresseTest {
     @Test
     void testSetNomRueValide() throws Exception {
         // Test de l'attribution d'un nom de rue valide.
-        adresse.setNomRue("Avenue des Champs-Élysées");
+        assertDoesNotThrow(() -> adresse.setNomRue("Avenue des Champs-Élysées"));
         assertEquals("Avenue des Champs-Élysées", adresse.getNomRue());
     }
 
@@ -69,7 +70,7 @@ public class AdresseTest {
     @Test
     void testSetCodePostalValide() throws Exception {
         // Test de l'attribution d'un code postal valide.
-        adresse.setCodePostal("12345");
+        assertDoesNotThrow(() -> adresse.setCodePostal("12345"));
         assertEquals("12345", adresse.getCodePostal());
     }
 
@@ -90,7 +91,7 @@ public class AdresseTest {
     @Test
     void testSetVilleValide() throws Exception {
         // Test de l'attribution d'une ville valide.
-        adresse.setVille("Lyon");
+        assertDoesNotThrow(() -> adresse.setVille("Lyon"));
         assertEquals("Lyon", adresse.getVille());
     }
 

@@ -1,5 +1,6 @@
-package entities;
+package test;
 
+import entities.Societe;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,7 +34,7 @@ public class SocieteTest {
     @Test
     void testSetRaisonSocialeValide() throws Exception {
         // Test de l'attribution d'une raison sociale valide.
-        societe.setRaisonSocialeSociete("Entreprise Test");
+        assertDoesNotThrow(() -> societe.setRaisonSocialeSociete("Entreprise Test"));
         assertEquals("Entreprise Test", societe.getRaisonSocialeSociete());
     }
 
@@ -47,7 +48,7 @@ public class SocieteTest {
     @Test
     void testSetTelSocieteValide() throws Exception {
         // Test de l'attribution d'un numéro de téléphone valide.
-        societe.setTelSociete("0123456789");
+        assertDoesNotThrow(() -> societe.setTelSociete("0123456789"));
         assertEquals("0123456789", societe.getTelSociete());
     }
 
@@ -61,7 +62,7 @@ public class SocieteTest {
     @Test
     void testSetEmailSocieteValide() throws Exception {
         // Test de l'attribution d'un email valide.
-        societe.setEmailSociete("contact@test.com");
+        assertDoesNotThrow(() -> societe.setEmailSociete("contact@test.com"));
         assertEquals("contact@test.com", societe.getEmailSociete());
     }
 
@@ -79,6 +80,4 @@ public class SocieteTest {
 //        societe.setAdresseSociete(adresse);
 //        assertEquals(adresse, societe.getAdresseSociete());
 //    }
-
-
 }

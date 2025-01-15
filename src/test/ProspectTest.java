@@ -1,5 +1,8 @@
-package entities;
+package test;
 
+import entities.Adresse;
+import entities.ExoException;
+import entities.Prospect;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import utilities.Interet;
@@ -25,7 +28,7 @@ public class ProspectTest {
                 "test@example.com",
                 "Commentaire",
                 new Adresse("123", "Rue de Paris", "75000", "Paris"),
-                "01/01/2023",
+                LocalDate.of(2023, 1, 1),
                 "oui"
         );
     }
@@ -45,21 +48,21 @@ public class ProspectTest {
     @Test
     void testSetDateProspectionValide() throws Exception {
         // Test de l'attribution d'une date de prospection valide.
-        prospect.setDateProspection("15/08/2023");
+        assertDoesNotThrow(() -> prospect.setDateProspection(LocalDate.of(2023, 8, 15)));
         assertEquals(LocalDate.of(2023, 8, 15), prospect.getDateProspection());
     }
 
     @Test
     void testSetDateProspectionInvalide() {
         // Test de l'attribution d'une date de prospection invalide.
-        Exception exception = assertThrows(Exception.class, () -> prospect.setDateProspection("2023-15-08"));
-        assertEquals("Date invalide, veuillez saisir au format jj/MM/aaaa.", exception.getMessage());
+        Exception exception = assertThrows(ExoException.class, () -> prospect.setDateProspection(null));
+        assertEquals("La date de prospection ne peut pas être null", exception.getMessage());
     }
 
     @Test
     void testSetInterestedValide() {
         // Test de l'attribution d'un état d'intérêt valide.
-        prospect.setInterested("non");
+        assertDoesNotThrow(() -> prospect.setInterested("non"));
         assertEquals(Interet.NON, prospect.getInterested());
     }
 
@@ -76,5 +79,10 @@ public class ProspectTest {
         assertTrue(Prospect.getIdProspect() > 0);
     }
 
-
+    @Test
+    void testToString() {
+        // Test de la méthode toString pour vérifier la représentation en chaîne du prospect.
+        String expected = "Societe{id=1, raisonSociale='Raison Sociale', tel='0123456789', email='test@example.com', commentaire='Commentaire', adresse=Adresse{numeroRue='123', nomRue='Rue de Paris', codePostal='75000', ville='Paris'}}Prospect{dateProspection=2023-01-01, interested='OUI'}";
+        assertEquals(expected, prospect.toString());
+    }
 }

@@ -1,5 +1,7 @@
-package entities;
+package test;
 
+import entities.Adresse;
+import entities.Client;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -41,7 +43,7 @@ public class ClientTest {
     @Test
     void testSetChiffreAffaireValide() throws Exception {
         // Test de l'attribution d'un chiffre d'affaires valide.
-        client.setChiffreAffaire(5000L);
+        assertDoesNotThrow(() -> client.setChiffreAffaire(5000L));
         assertEquals(5000L, client.getChiffreAffaire());
     }
 
@@ -55,7 +57,7 @@ public class ClientTest {
     @Test
     void testSetNbEmployeValide() throws Exception {
         // Test de l'attribution d'un nombre d'employés valide.
-        client.setNbEmploye(20);
+        assertDoesNotThrow(() -> client.setNbEmploye(20));
         assertEquals(20, client.getNbEmploye());
     }
 
