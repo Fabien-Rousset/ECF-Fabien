@@ -12,7 +12,7 @@ import static entities.ListeClient.listeClient;
 public class Client extends Societe {
 
     /** Chiffre d'affaires réalisé par le client. */
-    private Long chiffreAffaire;
+    private long chiffreAffaire;
 
     /** Nombre d'employés travaillant pour le client. */
     private Integer nbEmploye;
@@ -64,7 +64,7 @@ public class Client extends Societe {
      *
      * @return Le chiffre d'affaires réalisé par le client.
      */
-    public double getChiffreAffaire() {
+    public long getChiffreAffaire() {
         return chiffreAffaire;
     }
 
@@ -73,9 +73,9 @@ public class Client extends Societe {
      *
      * @param chiffreAffaire Le nouveau chiffre d'affaires réalisé par le client.
      */
-    public void setChiffreAffaire(Long chiffreAffaire) throws ExoException {
+    public void setChiffreAffaire(long chiffreAffaire) throws ExoException {
         // Vérifie si chiffreAffaire est null, égal à zéro, ou inférieur à 200
-        if (chiffreAffaire == null || chiffreAffaire == 0 || chiffreAffaire < 200) {
+        if ( chiffreAffaire < 200) {
             throw new ExoException("Chiffre d'affaire non valide : il ne doit pas être nul ou égal à zéro, et doit être supérieur ou égal à 200.");
         }
         // Affecte la valeur si elle est valide

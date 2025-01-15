@@ -19,7 +19,7 @@ import java.awt.event.*;
 public class Accueil extends JFrame {
 
     /** Indique si l'opération en cours est une modification ou non. */
-    private boolean isModification = false;
+    private boolean isModification = true;
 
     /** Panneau principal de contenu. */
     private JPanel contentPane;
@@ -147,7 +147,8 @@ public class Accueil extends JFrame {
         modificationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Accueil3.setVisible(true); // Affiche le panneau pour la sélection.
+                Accueil3.setVisible(true);// Affiche le panneau pour la sélection.
+                isModification = false;
                 if (societeChoix == SocieteChoix.CLIENT) {
                     remplirComboBoxClients(); // Remplit la liste déroulante avec les clients.
                 } else if (societeChoix == SocieteChoix.PROSPECT) {
@@ -193,10 +194,10 @@ public class Accueil extends JFrame {
                     if (index >= 0) {
                         if (societeChoix == SocieteChoix.CLIENT) {
                             Client client = ListeClient.listeClient.get(index);
-                            new MiseAjour(societeChoix, client, true).setVisible(true); // Mode readonly
+                            new MiseAjour(societeChoix, client,isModification).setVisible(true); // Mode readonly
                         } else if (societeChoix == SocieteChoix.PROSPECT) {
                             Prospect prospect = ListeProspect.listeProspect.get(index);
-                            new MiseAjour(societeChoix, prospect, true).setVisible(true); // Mode readonly
+                            new MiseAjour(societeChoix, prospect, isModification).setVisible(true); // Mode readonly
                         }
                     } else {
                         JOptionPane.showMessageDialog(
