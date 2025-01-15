@@ -5,6 +5,7 @@ import utilities.SocieteChoix;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.logging.Level;
 
@@ -248,26 +249,27 @@ public class MiseAjour extends JDialog {
                                         codePostalField.getText().trim(),
                                         villeField.getText().trim()
                                 ),
-                                dateProspectField.getText(),
+                                LocalDate.parse(dateProspectField.getText()),
                                 boxInteret.getSelectedItem().toString()
                         );
                         ListeProspect.ajouterProspect(prospect);
                         JOptionPane.showMessageDialog(contentPane, "Prospect ajouté avec succès !");
                     }
                 } catch (DateTimeParseException de) {
-                    LOGGER.log(Level.WARNING, "Erreur de parsing de la date", de);
+                    LOGGER.log(Level.INFO, "Erreur de parsing de la date", de);
                     JOptionPane.showMessageDialog(contentPane, "Date invalide : La date doit être au format jj/MM/aaaa et être valide.", "Erreur", JOptionPane.ERROR_MESSAGE);
                 } catch (NumberFormatException nfe) {
-                    LOGGER.log(Level.WARNING, "Erreur de parsing d'un nombre", nfe);
+                    LOGGER.log(Level.INFO, "Erreur de parsing d'un nombre", nfe);
                     JOptionPane.showMessageDialog(contentPane, "Veuillez saisir un nombre valide pour le chiffre d'affaires ou le nombre d'employés.", "Erreur", JOptionPane.ERROR_MESSAGE);
                 } catch (ExoException ee) {
-                    LOGGER.log(Level.WARNING, "Erreur spécifique de l'application", ee);
+                    LOGGER.log(Level.INFO, "Erreur spécifique de l'application", ee);
                     JOptionPane.showMessageDialog(contentPane, "Erreur : " + ee.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
                 } catch (Exception ex) {
                     LOGGER.log(Level.SEVERE, "Une erreur inattendue s'est produite", ex);
                     JOptionPane.showMessageDialog(contentPane, "Une erreur inattendue s'est produite : " + ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                    System.exit(1);
                 }
-            }
+                           }
         });
 
         buttonAccueil.addActionListener(new ActionListener() {

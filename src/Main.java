@@ -49,7 +49,7 @@ public class Main {
             Adresse adresse2 = new Adresse("255","rue du pipot","75002", "Paris");
 
             Client client1 = new Client("Nike","0754533320","kjghgk@gmail.com","pas de commentaire", adresse1, 500000000L, 50);
-            Prospect prospect1 = new Prospect("Adidias","0754533320", "ljsdqf@gmail.com", "pads de commentaire", adresse2, "25/05/2005", "oui");
+            Prospect prospect1 = new Prospect("Adidias","0754533320", "ljsdqf@gmail.com", "pads de commentaire", adresse2, LocalDate.parse("25/05/2005"), "oui");
             ListeClient.ajouterClient(client1);
             ListeProspect.ajouterProspect(prospect1);
 

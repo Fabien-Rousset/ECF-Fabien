@@ -26,9 +26,9 @@ public class Prospect extends Societe {
 
 
     public Prospect(String raisonSocialeSociete, String telSociete, String emailSociete,
-                    String commentaireSociete, Adresse adresseSociete, String dateProspection, String interested) throws Exception {
+                    String commentaireSociete, Adresse adresseSociete, LocalDate dateProspection, String interested) throws Exception {
         super(idProspect++, raisonSocialeSociete, telSociete, emailSociete, commentaireSociete, adresseSociete);
-        setDateProspection(String.valueOf(dateProspection));
+        setDateProspection(dateProspection);
         setInterested(interested);
 
 
@@ -50,15 +50,8 @@ public class Prospect extends Societe {
     /**
 //     * Modifie la date de prospection.
      **/
-    public void setDateProspection(String dateProspectionString) throws ExoException {
-            // Tente de parser la chaîne avec le formatteur de date
-        // Si la conversion est réussie, la valeur est affectée
-        try{
-            this.dateProspection = LocalDate.parse(dateProspectionString, DATE_FORMATTER);}
-        catch(DateTimeException e){
-            throw new ExoException("Date invalide, veuillez saisir au format jj/MM/aaaa.");
-        }
-            // Lève une exception si la date n'est pas au bon format
+    public void setDateProspection(LocalDate dateProspection) throws ExoException {
+         this.dateProspection = dateProspection;
 
     }
 

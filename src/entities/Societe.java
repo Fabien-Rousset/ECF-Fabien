@@ -13,7 +13,7 @@ public abstract class Societe {
     // Attributs privés représentant les informations principales d'une société.
 
     /** Identifiant unique de la société. */
-    private int idSociete = 1;
+    private int idSociete;
 
     /** Raison sociale de la société (nom commercial). */
     private String raisonSocialeSociete;
