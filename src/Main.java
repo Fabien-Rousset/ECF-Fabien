@@ -2,12 +2,15 @@
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLightLaf;
+import dao.ClientDAO;
+import dao.DaoException;
 import entities.*;
 import entities.ListeClient.*;
 
 import utilities.SocieteChoix;
 import view.Accueil;
 import view.MiseAjour;
+import dao.Connexion;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -25,8 +28,10 @@ public class Main {
         try {
             initialiserLogger();
 
+
             FlatLightLaf.setup();
             new Accueil().setVisible(true);
+
 
 
         } catch (IOException ex) {
@@ -34,7 +39,7 @@ public class Main {
             System.exit(1);
         }
 
-        remplissageAdresseClientProspect();
+
 
 
         LOGGER.log(Level.INFO, "Lancement de l'application");
@@ -43,18 +48,5 @@ public class Main {
 
 
     }
-    public static void remplissageAdresseClientProspect(){
-        try {
-            Adresse adresse1 = new Adresse("5","rue de la paix","75001", "Paris");
-            Adresse adresse2 = new Adresse("255","rue du pipot","75002", "Paris");
 
-            Client client1 = new Client("Nike","0754533320","kjghgk@gmail.com","pas de commentaire", adresse1, 500000000L, 50);
-//            Prospect prospect1 = new Prospect("Adidias","0754533320", "ljsdqf@gmail.com", "pas de commentaire", adresse2, LocalDate.parse("25/05/2005"), "oui");
-            ListeClient.ajouterClient(client1);
-//            ListeProspect.ajouterProspect(prospect1);
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-    }
 }

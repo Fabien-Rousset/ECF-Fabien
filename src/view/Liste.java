@@ -1,12 +1,16 @@
 package view;
 
+import dao.ClientDAO;
+import dao.DaoException;
 import entities.Client;
+import entities.ListeClient;
 import entities.Prospect;
 import utilities.SocieteChoix;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
+import java.util.List;
 
 import static entities.ListeClient.listeClient;
 import static entities.ListeProspect.listeProspect;
@@ -27,7 +31,7 @@ public class Liste extends JFrame {
      * Constructeur de la classe Liste.
      * @param p_societeChoix le type d'entité (Client ou Prospect) dont on souhaite afficher la liste.
      */
-    public Liste(SocieteChoix p_societeChoix) {
+    public Liste(SocieteChoix p_societeChoix) throws DaoException {
         getRootPane().setDefaultButton(buttonAccueil);
         initFrame();
         listeners();
@@ -94,7 +98,7 @@ public class Liste extends JFrame {
      * Remplit le tableau JTable avec les données des Clients ou des Prospects.
      * @param p_societeChoix le type d'entité (Client ou Prospect) à afficher dans le tableau.
      */
-    private void remplissageJTable(SocieteChoix p_societeChoix) {
+    private void remplissageJTable(SocieteChoix p_societeChoix) throws DaoException {
         String[] entetes;
         DefaultTableModel tableModel;
 
@@ -105,8 +109,10 @@ public class Liste extends JFrame {
             tableModel = new DefaultTableModel(entetes, 0);
             tableModel.addRow(entetes);
 
+            List<Client> ClientSList = new ClientDAO().findAll();
+
             // Ajout des données des Clients dans le tableau
-            for (Client listeClient : listeClient) {
+            for (Client listeClient : ClientSList) {
                 tableModel.addRow(new Object[]{
                         listeClient.getIdSociete(),
                         listeClient.getRaisonSocialeSociete(),

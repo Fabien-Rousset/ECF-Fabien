@@ -1,5 +1,6 @@
 package view;
 
+import dao.DaoException;
 import entities.Client;
 import entities.ListeClient;
 import entities.ListeProspect;
@@ -99,6 +100,7 @@ public class Accueil extends JFrame {
         Accueil3.setVisible(false);
     }
 
+
     /**
      * Préremplit les champs si nécessaire.
      * Cette méthode est prévue pour une implémentation future si besoin.
@@ -140,7 +142,11 @@ public class Accueil extends JFrame {
         affichageButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new Liste(societeChoix).setVisible(true); // Ouvre la liste des clients/prospects.
+                try {
+                    new Liste(societeChoix).setVisible(true); // Ouvre la liste des clients/prospects.
+                } catch (DaoException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 

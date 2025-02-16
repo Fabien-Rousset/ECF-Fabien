@@ -1,9 +1,7 @@
 package entities;
 
-import java.util.Collections;
-import java.util.Comparator;
-
-import static entities.ListeClient.listeClient;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Classe représentant un client, qui est une spécialisation de la classe abstraite {@link Societe}.
@@ -12,20 +10,15 @@ import static entities.ListeClient.listeClient;
 public class Client extends Societe {
 
     /** Chiffre d'affaires réalisé par le client. */
-    private long chiffreAffaire;
+    private Integer chiffreAffaire;
 
     /** Nombre d'employés travaillant pour le client. */
     private Integer nbEmploye;
 
     /** Identifiant unique global pour tous les clients. */
-    public static int idClient = 1;
+    public static Integer idClient = 1;
 
-
-
-    /**
-     * Constructeur par défaut.
-     * Utilisé pour créer une instance de Client sans initialiser ses champs.
-     */
+    private final List<Contrat> contratList = new ArrayList<>();
 
 
     /**
@@ -42,7 +35,7 @@ public class Client extends Societe {
      */
     public Client(
             String raisonSocialeSociete, String telSociete, String emailSociete,
-            String commentaireSociete, Adresse adresseSociete, Long chiffreAffaire, Integer nbEmploye) throws Exception {
+            String commentaireSociete, Adresse adresseSociete, Integer chiffreAffaire, Integer nbEmploye) throws Exception {
 
         // Appelle le constructeur de la classe parente (Societe)
         super(idClient++, raisonSocialeSociete, telSociete, emailSociete, commentaireSociete, adresseSociete);
@@ -52,7 +45,7 @@ public class Client extends Societe {
         setNbEmploye(nbEmploye);
     }
 
-    public static int renvoiProchainId(){
+    public static Integer renvoiProchainId(){
         return idClient;
     }
 
@@ -64,7 +57,7 @@ public class Client extends Societe {
      *
      * @return Le chiffre d'affaires réalisé par le client.
      */
-    public long getChiffreAffaire() {
+    public Integer getChiffreAffaire() {
         return chiffreAffaire;
     }
 
@@ -73,7 +66,7 @@ public class Client extends Societe {
      *
      * @param chiffreAffaire Le nouveau chiffre d'affaires réalisé par le client.
      */
-    public void setChiffreAffaire(long chiffreAffaire) throws ExoException {
+    public void setChiffreAffaire(Integer chiffreAffaire) throws ExoException {
         // Vérifie si chiffreAffaire est null, égal à zéro, ou inférieur à 200
         if ( chiffreAffaire < 200) {
             throw new ExoException("Chiffre d'affaire non valide : il ne doit pas être nul ou égal à zéro, et doit être supérieur ou égal à 200.");
@@ -88,7 +81,7 @@ public class Client extends Societe {
      *
      * @return Le nombre d'employés.
      */
-    public int getNbEmploye() {
+    public Integer getNbEmploye() {
         return nbEmploye;
     }
 
@@ -111,7 +104,7 @@ public class Client extends Societe {
      *
      * @return L'identifiant unique global du client.
      */
-    public static int getIdClient() {
+    public static Integer getIdClient() {
         return idClient;
     }
 
@@ -120,8 +113,16 @@ public class Client extends Societe {
      *
      * @param idClient Le nouvel identifiant global pour les clients.
      */
-    public static void setIdClient(int idClient) {
+    public static void setIdClient(Integer idClient) {
         Client.idClient = idClient;
+    }
+
+    public void addContratList (Contrat contrat) {
+        this.contratList.add(contrat);
+    }
+
+    public List<Contrat> getContratList() {
+        return contratList;
     }
 
     @Override

@@ -1,6 +1,9 @@
 package view;
 
+import dao.ClientDAO;
+import dao.Connexion;
 import entities.*;
+import utilities.RegexPattern;
 import utilities.SocieteChoix;
 
 import javax.swing.*;
@@ -101,6 +104,7 @@ public class MiseAjour extends JDialog {
         initFrame();
         listeners();
         changementLabel();
+
         preRemplirChamps(societeChoix);
         isCreation = false;
         if (isReadOnly) {
@@ -151,6 +155,7 @@ public class MiseAjour extends JDialog {
             telephoneField.setText(client.getTelSociete());
             emailField.setText(client.getEmailSociete());
             adresseField.setEditable(false);
+            adresseField.setVisible(false);
             numRueField.setText(client.getAdresseSociete().getNumeroRue());
             nomRueField.setText(client.getAdresseSociete().getNomRue());
             codePostalField.setText(client.getAdresseSociete().getCodePostal());
@@ -163,6 +168,7 @@ public class MiseAjour extends JDialog {
             telephoneField.setText(prospect.getTelSociete());
             emailField.setText(prospect.getEmailSociete());
             adresseField.setEditable(false);
+            adresseField.setVisible(false);
             numRueField.setText(prospect.getAdresseSociete().getNumeroRue());
             nomRueField.setText(prospect.getAdresseSociete().getNomRue());
             codePostalField.setText(prospect.getAdresseSociete().getCodePostal());
@@ -237,10 +243,10 @@ public class MiseAjour extends JDialog {
                                             codePostalField.getText().trim(),
                                             villeField.getText().trim()
                                     ),
-                                    Long.parseLong(chiffreAffaireField.getText().trim()),
+                                    Integer.parseInt(chiffreAffaireField.getText().trim()),
                                     Integer.parseInt(nbEmployeField.getText().trim())
                             );
-                            ListeClient.ajouterClient(client);
+                            new ClientDAO().create(client);
                             JOptionPane.showMessageDialog(contentPane, "Client ajouté avec succès !");
                         } else if (societeChoix == SocieteChoix.PROSPECT) {
                             Prospect prospect = new Prospect(
@@ -254,7 +260,7 @@ public class MiseAjour extends JDialog {
                                             codePostalField.getText().trim(),
                                             villeField.getText().trim()
                                     ),
-                                    LocalDate.parse(dateProspectField.getText()),
+                                    LocalDate.parse(dateProspectField.getText(), RegexPattern.DATE_FORMATTER),
                                     boxInteret.getSelectedItem().toString()
                             );
                             ListeProspect.ajouterProspect(prospect);
@@ -265,7 +271,7 @@ public class MiseAjour extends JDialog {
                             client.setRaisonSocialeSociete(raisonSocialeField.getText().trim());
                             client.setTelSociete(telephoneField.getText().trim());
                             client.setEmailSociete(emailField.getText().trim());
-                            client.setChiffreAffaire(Long.parseLong(chiffreAffaireField.getText().trim()));
+                            client.setChiffreAffaire(Integer.valueOf(chiffreAffaireField.getText().trim()));
                             client.setNbEmploye(Integer.parseInt(nbEmployeField.getText().trim()));
                             client.setAdresseSociete(new Adresse(numRueField.getText(), nomRueField.getText(), codePostalField.getText(), villeField.getText()));
                         } else if (societeChoix == SocieteChoix.PROSPECT) {

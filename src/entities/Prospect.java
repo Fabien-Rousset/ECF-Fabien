@@ -22,7 +22,7 @@ public class Prospect extends Societe {
     //A VOIR
 
     /** Identifiant unique global pour tous les prospects. */
-    private static int idProspect = 1;
+    private static Integer idProspect = 1;
 
 
     public Prospect(String raisonSocialeSociete, String telSociete, String emailSociete,
@@ -34,7 +34,7 @@ public class Prospect extends Societe {
 
     }
 
-    public static int renvoiProchainId(){
+    public static Integer renvoiProchainId(){
         return idProspect;
     }
 
@@ -80,7 +80,7 @@ public class Prospect extends Societe {
      *
      * @return L'identifiant unique global du prospect.
      */
-    public static int getIdProspect() {
+    public static Integer getIdProspect() {
         return idProspect;
     }
 
@@ -89,7 +89,7 @@ public class Prospect extends Societe {
      *
      * @param idProspect Le nouvel identifiant global pour les prospects.
      */
-    public static void setIdProspect(int idProspect) {
+    public static void setIdProspect(Integer idProspect) {
         Prospect.idProspect = idProspect;
     }
 

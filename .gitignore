@@ -3,7 +3,8 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 /log/*
-
+mysql-connector-java-8.0.30.jar
+mysql-connector-j-9.2.0.jar
 
 ### Eclipse ###
 .apt_generated

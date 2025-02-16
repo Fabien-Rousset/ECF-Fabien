@@ -23,7 +23,7 @@ public class ClientTest {
                 "test@example.com",
                 "Commentaire",
                 new Adresse("123", "Rue de Paris", "75000", "Paris"),
-                1000L,
+                1000,
                 10
         );
     }
@@ -36,21 +36,21 @@ public class ClientTest {
         assertEquals("test@example.com", client.getEmailSociete());
         assertEquals("Commentaire", client.getCommentaireSociete());
         assertNotNull(client.getAdresseSociete());
-        assertEquals(1000L, client.getChiffreAffaire());
+        assertEquals(1000, client.getChiffreAffaire());
         assertEquals(10, client.getNbEmploye());
     }
 
     @Test
     void testSetChiffreAffaireValide() throws Exception {
         // Test de l'attribution d'un chiffre d'affaires valide.
-        assertDoesNotThrow(() -> client.setChiffreAffaire(5000L));
-        assertEquals(5000L, client.getChiffreAffaire());
+        assertDoesNotThrow(() -> client.setChiffreAffaire(5000));
+        assertEquals(5000, client.getChiffreAffaire());
     }
 
     @Test
     void testSetChiffreAffaireInvalide() {
         // Test de l'attribution d'un chiffre d'affaires invalide.
-        Exception exception = assertThrows(Exception.class, () -> client.setChiffreAffaire(0L));
+        Exception exception = assertThrows(Exception.class, () -> client.setChiffreAffaire(0));
         assertEquals("Chiffre d'affaire non valide : il ne doit pas être nul ou égal à zéro, et doit être supérieur ou égal à 200.", exception.getMessage());
     }
 
